@@ -11,7 +11,8 @@ export const Post = ({postData}) => {
             {thumbUrl && thumbUrl !== 'spoiler' && thumbUrl !== 'nsfw' && <img src={thumbUrl}></img>}
             {thumbUrl === 'spoiler' && <h5>Shh... Link is a Spoiler!</h5>}
             {thumbUrl === 'nsfw' && <h5>Hmmm... Link is NSFW</h5>}
-            <p>{postData.title}</p>
+            <br/>
+            <p>{postData.score} | {postData.title}</p>
             <a href={postUrl}>www.reddit.com/r/{postData.subreddit}/{postData.id}</a>
             <p>====================</p>
         </div>

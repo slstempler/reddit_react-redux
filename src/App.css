@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+/* Sidebar Popular/Featured Subreddits */
+.sidebar-bar {
+  float: right;
+}
+.sidebar-link {
+  font-weight: bold;
+  font-family: 'Roboto';
+}
