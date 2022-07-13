@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Post = ({postData}) => {
-    const postUrl = `http://www.reddit.com/r/${postData.subreddit}/${postData.id}`
+    const postUrl = `http://www.reddit.com/r/${postData.subreddit}/${postData.id}`;
+    const routeUrl = `/r/${postData.subreddit}/comments/${postData.id}`;
     let thumbUrl;
     if(postData.thumbnail_height) thumbUrl = postData.thumbnail;
     //console.log(postData.title);
@@ -14,6 +16,7 @@ export const Post = ({postData}) => {
             <br/>
             <p>{postData.score} | {postData.title}</p>
             <a href={postUrl}>www.reddit.com/r/{postData.subreddit}/{postData.id}</a>
+            <Link to={routeUrl}>Go to Thread</Link>
             <p>====================</p>
         </div>
     );

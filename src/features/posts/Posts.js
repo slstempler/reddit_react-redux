@@ -23,7 +23,7 @@ export const Posts = () => {
     //dispatches getPosts action on first render and on route shift
     //utilizes useEffect hook per React demands and useLocation to 
     const firstRender = () => {
-        console.log(`fetching posts from r/${subredditSelection}...`);
+        //console.log(`fetching posts from r/${subredditSelection}...`);
         dispatch(getPosts(subredditSelection));
     }
 

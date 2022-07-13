@@ -16,7 +16,7 @@ export const getThread = createAsyncThunk(
     async (threadData, thunkAPI) => {
         const response = await fetchThread(threadData);
         const json = await response.json();
-        return json[1].data.children;
+        return json;
     }
 )
 
@@ -25,6 +25,7 @@ export const postsSlice = createSlice ({
     initialState: {
         posts: [],
         thread: [],
+        content: [],
         isLoading: false,
         hasError: false,
     },
@@ -33,7 +34,6 @@ export const postsSlice = createSlice ({
     extraReducers: (builder) => {
         builder
             .addCase('posts/getPosts/pending', (state, action) => {
-                console.log();
                 state.isLoading = true;
                 state.hasError = false;
             })
@@ -49,7 +49,7 @@ export const postsSlice = createSlice ({
                 state.posts = (action.payload);
             })
             .addCase('posts/getThread/pending', (state, action) => {
-                console.log(`fetching thread...`);
+                //console.log(`fetching thread...`);
                 state.isLoading = true;
                 state.hasError = false;
             })
@@ -59,11 +59,12 @@ export const postsSlice = createSlice ({
                 state.hasError = true;
             })
             .addCase('posts/getThread/fulfilled', (state, action) => {
-                console.log(`successfully fetched thread data`);
+                //console.log(`successfully fetched thread data`);
                 state.isLoading = false;
                 state.hasError = false;
                 state.thread = [];
-                state.thread = action.payload;
+                state.content = action.payload[0].data.children[0].data;
+                state.thread = action.payload[1].data.children;
             })
     }
 })
@@ -72,5 +73,6 @@ export const selectPosts = (state) => state.posts.posts; //posts selector, selec
 export const selectLoading = state => state.posts.isLoading;
 export const selectError = state => state.posts.hasError;
 export const selectThread = state => state.posts.thread;
+export const selectContent = state => state.posts.content;
 export const {addPosts} = postsSlice.actions;
 export default postsSlice.reducer;
