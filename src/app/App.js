@@ -5,10 +5,15 @@ import {Post} from '../features/posts/Post';
 import {Posts} from '../features/posts/Posts';
 import { SearchBar } from '../components/searchbar/SearchBar';
 import { SideBar } from '../components/SideBar';
-import { Thread } from '../features/posts/threads/Thread';
+import { Thread } from '../features/thread/Thread';
 
 export default function App() {
   const navigate = useNavigate();
+
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+  }
 
   return (
       <div>
@@ -23,6 +28,7 @@ export default function App() {
           <Route path="/r/:subreddit" element={<Posts />} />
           <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
         </Routes>
+        <button className='scroll-button' onClick={scrollToTop}>^^^^</button>
       </div>
   );
 }

@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
-import { getThread, selectError, selectLoading, getPosts, selectThread, selectContent } from "../postsSlice";
+import { getThread, 
+    selectThreadError, 
+    selectThreadLoading, 
+    selectThread, 
+    selectContent,
+    updateThreadImage, 
+    selectThreadImagePath} from "./threadSlice";
 
 export const Thread = () => {
     const dispatch = useDispatch();
@@ -11,10 +17,11 @@ export const Thread = () => {
     const subreddit = params.subreddit;
     const threadId = params.threadId;
     const threadData = useSelector(selectThread);
-    const threadError = useSelector(selectError);
-    const threadLoading = useSelector(selectLoading);
+    const threadError = useSelector(selectThreadError);
+    const threadLoading = useSelector(selectThreadLoading);
     const threadContent = useSelector(selectContent);
     const subredditPath = '/r/' + subreddit;
+    const threadImagePath = useSelector(selectThreadImagePath);
     let imagePath = ''
     let imageDoRender = false;
     //NEED TO WORK OUT FLOW HERE! CAN'T LOAD POSTS BEFORE POSTS LOAD..
@@ -23,26 +30,31 @@ export const Thread = () => {
     //Effect function to dispatch action creator
     const renderThread = () => {
         dispatch(getThread({subreddit: subreddit, threadId: threadId}));
+        //extractImages();
     }
 
     //obtains image path from reddit gallery
     const extractImages = () => {
-        if(threadData && !threadError && !threadLoading){
+        console.log(`imagePath = ${imagePath}`)
+        if(threadImagePath && !threadError && !threadLoading){
             const galleryData = threadContent.media_metadata;
-            console.log(galleryData)
+            let pathHolding = '';
             for(let key in galleryData){
                 for(let size in galleryData[key].p){
-                    imagePath = galleryData[key].p[size].u;
+                    console.log(galleryData[key].p[size].u)
+                    pathHolding = galleryData[key].p[size].u;
                 }
             }
-            imagePath = imagePath.replace(/&amp;/g, '&');
+            imagePath = pathHolding.replace(/&amp;/g, '&');
+            console.log(imagePath)
+            dispatch(updateThreadImage(imagePath));
         }
         else {console.log(`awaiting thread data...`)};
     }
 
     //useEffect pulls thread data on first render, fires on location change
     useEffect(renderThread, [location]);
-    useEffect(extractImages, [location, threadData]);
+    //useEffect(extractImages, [location, imagePath]);
   
 
     //returns post content + Comments components(?)
@@ -52,11 +64,20 @@ export const Thread = () => {
                 <Link to={subredditPath}>Back to subreddit!</Link>
                 <section className="thread-content">
                     <p>=====THREAD CONTENT HERE======</p>
-                    {threadContent.thumbnail && threadContent.thumbnail !== "self" &&
-                        <img src={threadContent.url} alt="thread thumbnail"></img>
+                    {threadContent &&
+                        <p>{threadContent.title}</p>
                     }
-                    {//what went wrong?? not rendering bc...??? 
-                        <img src={imagePath} alt="gallery preview"></img>
+                    {threadContent.thumbnail && 
+                    threadContent.thumbnail !== "self" &&
+                    !threadContent.media &&
+                    !threadImagePath &&
+                        <img src={threadContent.url} alt="thread url"></img>
+                    }
+                    {threadImagePath &&
+                        <img src={threadImagePath} alt="gallery preview"></img>
+                    }
+                    {threadContent.is_self &&
+                        <p>{threadContent.selftext}</p>
                     }
                 </section>
                 <section className="thread-comments">

@@ -1,7 +1,18 @@
 //used to get posts from designated subreddit
-export const fetchPosts = (subreddit) => {
-    const response = fetch(`https://www.reddit.com/r/${subreddit}.json`);
-    return response;
+export const fetchPosts = (subreddit, after = '', before = '') => {
+    if(!after && !before){
+        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30`);
+        return response;
+    }
+    else if(after){
+        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&after=${after}`);
+        return response;
+    }
+    else if(before){
+        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&before=${before}`);
+        return response;
+    }
+    
 }
 
 //gets list of "popular" subreddits

@@ -37,6 +37,14 @@
   }
 }
 
+/* Core UI Features */
+.scroll-button {
+  position: sticky;
+  left: 1000px;
+  bottom: 50px;
+  z-index: 10;
+}
+
 /* Sidebar Popular/Featured Subreddits */
 .sidebar-bar {
   float: right;
@@ -45,3 +53,4 @@
   font-weight: bold;
   font-family: 'Roboto';
 }
+
