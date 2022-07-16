@@ -1,31 +1,49 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
+import { useLocation, 
+        useNavigate, 
+        useParams, 
+        Link, 
+        useSearchParams } from "react-router-dom";
+import { selectAfter, selectBefore } from "../posts/postsSlice";
 import { getThread, 
     selectThreadError, 
     selectThreadLoading, 
     selectThread, 
     selectContent,
     updateThreadImage, 
-    selectThreadImagePath} from "./threadSlice";
+    selectThreadImagePath,
+    selectThreadContentType} from "./threadSlice";
 
 export const Thread = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
+    
     const subreddit = params.subreddit;
     const threadId = params.threadId;
     const threadData = useSelector(selectThread);
     const threadError = useSelector(selectThreadError);
     const threadLoading = useSelector(selectThreadLoading);
     const threadContent = useSelector(selectContent);
+    const threadContentType = useSelector(selectThreadContentType);
     const subredditPath = '/r/' + subreddit;
+    const before = useSelector(selectBefore);
+    const after = useSelector(selectAfter);
+
+
+    /* URL QUERIES STUFF TO FIX
+    //if there is an "after" value, use that to populate the return page
+    let backToPostsPath = '';
+    after ? backToPostsPath = subredditPath + '?after=' + after : backToPostsPath = subredditPath;
+    */
+
+    //used to populate img component attributes
     const threadImagePath = useSelector(selectThreadImagePath);
     let imagePath = ''
     let imageDoRender = false;
-    //NEED TO WORK OUT FLOW HERE! CAN'T LOAD POSTS BEFORE POSTS LOAD..
-    //const selectPosts = useSelector(selectPosts);
+    let videoEmbedPath = `https://www.redditmedia.com/r/${subreddit}/comments/${threadId}/?embed=true&theme=dark`;
 
     //Effect function to dispatch action creator
     const renderThread = () => {
@@ -64,18 +82,29 @@ export const Thread = () => {
                 <Link to={subredditPath}>Back to subreddit!</Link>
                 <section className="thread-content">
                     <p>=====THREAD CONTENT HERE======</p>
+                    {/* displays thread title at top of page */}
                     {threadContent &&
                         <p>{threadContent.title}</p>
                     }
+                    {/* previews thumbnail when that is best option */}
                     {threadContent.thumbnail && 
-                    threadContent.thumbnail !== "self" &&
                     !threadContent.media &&
                     !threadImagePath &&
+                    threadContentType !== 'selftext' &&
                         <img src={threadContent.url} alt="thread url"></img>
                     }
-                    {threadImagePath &&
+                    {/* previews gallery when there is a gallery */}
+                    {threadContentType === 'gallery' &&
                         <img src={threadImagePath} alt="gallery preview"></img>
                     }
+                    {/* video workaround using reddit Embed, only when video flag is true */}
+                    {threadContentType === 'video' &&
+                        <iframe src={videoEmbedPath}
+                                sandbox="allow-scripts allow-same-origin allow-popups"
+                                style={{border: 'none'}}
+                                height="400"
+                                width="615"
+                                scrolling="no"></iframe>}
                     {threadContent.is_self &&
                         <p>{threadContent.selftext}</p>
                     }

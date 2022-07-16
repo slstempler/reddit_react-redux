@@ -29,6 +29,11 @@ const extractImages = (action) => {
     return imagePath;
 }
 
+//runs through action payload JSON to indicate relevant flags for rendering
+const parseThreadData = (action) => {
+
+}
+ 
 export const threadSlice = createSlice({
     name: 'thread',
     initialState: {
@@ -37,6 +42,7 @@ export const threadSlice = createSlice({
         isLoading: false,
         hasError: false,
         imagePath: '',
+        contentType: ''
     },
     reducers: {
         updateThreadImage(state, action) {
@@ -62,6 +68,18 @@ export const threadSlice = createSlice({
                 state.content = action.payload[0].data.children[0].data;
                 state.thread = action.payload[1].data.children;
                 state.imagePath = extractImages(action);
+                if(state.content.is_video){
+                    state.contentType = 'video';
+                }
+                else if(state.content.is_self){
+                    state.contentType = 'selftext';
+                }
+                else if(state.content.is_gallery){
+                    state.contentType = 'gallery';
+                }
+                else if(state.content.is_reddit_media_domain && state.content.domain==="i.redd.it"){
+                    state.contentType = 'imageUpload'
+                }
             })
     }
 })
@@ -71,5 +89,6 @@ export const selectThreadError = state => state.thread.hasError;
 export const selectContent = state => state.thread.content;
 export const selectThread = state => state.thread.thread;
 export const selectThreadImagePath = state => state.thread.imagePath;
+export const selectThreadContentType = state => state.thread.contentType;
 export const {updateThreadImage} = threadSlice.actions;
 export default threadSlice.reducer;
