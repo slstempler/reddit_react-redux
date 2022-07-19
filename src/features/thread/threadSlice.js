@@ -77,8 +77,19 @@ export const threadSlice = createSlice({
                 else if(state.content.is_gallery){
                     state.contentType = 'gallery';
                 }
+                else if(state.content.url.includes('.gif')){
+                    state.contentType = 'gif';
+                }
+                else if(state.content.post_hint == 'image' ||
+                        state.content.domain == 'i.redd.it' ||
+                        state.content.url.includes('.png') || state.content.url.includes('.jpg')){
+                    state.contentType = 'image'
+                }
                 else if(state.content.is_reddit_media_domain && state.content.domain==="i.redd.it"){
-                    state.contentType = 'imageUpload'
+                    state.contentType = 'imageUpload';
+                }
+                else{
+                    state.contentType = 'other';
                 }
             })
     }

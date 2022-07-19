@@ -16,6 +16,7 @@ export const Posts = () => {
     const subredditSelection = params.subreddit;
     const location = useLocation();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     //URL Query Management
     //base case - getting before/after from store having used pages
@@ -26,22 +27,8 @@ export const Posts = () => {
     // 1. if we have a direct URL query, prefer that
     // 2. if we don't - either from Posts or Thread, prefer store
     // 3. if we have neither, go to default
-    /*
-    const [searchParams, setSearchParams] = useSearchParams();
-    let searchBefore, searchAfter;
-    if(searchParams.has('after')){
-        after = searchParams.get('after');
-    } 
-    else if(searchParams.has('before')){
-        before = searchParams.get('before');
-    } 
 
-    
-    // state.postsAfter && setSearchParams({after: action.payload.after});
-    // state.postsBefore && setSearchParams({before: action.payload.before});
-    
-    */
-   
+
     const handleLoadPosts = (e) => {
         e.preventDefault();
         dispatch(getPosts(subredditSelection, after));
@@ -50,21 +37,34 @@ export const Posts = () => {
     const handleNextPage = (e) => {
         e.preventDefault();
         dispatch(getPosts({subreddit: subredditSelection, after: after}));
+        after && setSearchParams({after: after}); //sets URL query
     }
 
     const handlePrevPage = (e) => {
         e.preventDefault();
         dispatch(getPosts({subreddit: subredditSelection, before: before}));
+        before && setSearchParams({before: before}); //sets URL query
     }
 
     //dispatches getPosts action on first render and on route shift
     //utilizes useEffect hook per React demands and useLocation to 
     const firstRender = () => {
-        //console.log(`fetching posts from r/${subredditSelection}...`);
-        dispatch(getPosts({subreddit: subredditSelection, after: ''}));
+        
+        let searchBefore = ''; 
+        let searchAfter = '';
+
+        //handle URL query
+        if(searchParams.has('after')){
+            searchAfter = searchParams.get('after');
+        } 
+        else if(searchParams.has('before')){
+            searchBefore = searchParams.get('before');
+        } 
+
+        dispatch(getPosts({subreddit: subredditSelection, after: searchAfter, before: searchBefore}));
     }
 
-    useEffect(firstRender, [location]);
+    useEffect(firstRender, []);
     //resets scroll position after a new page is loaded
     //reset the dependency array once more URL params implemented?
     useEffect(() => {

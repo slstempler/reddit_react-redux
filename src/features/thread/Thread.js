@@ -87,10 +87,7 @@ export const Thread = () => {
                         <p>{threadContent.title}</p>
                     }
                     {/* previews thumbnail when that is best option */}
-                    {threadContent.thumbnail && 
-                    !threadContent.media &&
-                    !threadImagePath &&
-                    threadContentType !== 'selftext' &&
+                    {(threadContentType == 'other' || threadContentType == 'image' || threadContentType == 'gif') && 
                         <img src={threadContent.url} alt="thread url"></img>
                     }
                     {/* previews gallery when there is a gallery */}
