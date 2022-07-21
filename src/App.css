@@ -41,7 +41,7 @@
 .page-container {
   display: grid;
   grid-template: 10rem auto / repeat(12, 1fr);
-  margin: 0px 1rem;
+  margin: 0px 5rem;
 }
 .navbar-layout {
   grid-area: 1 / 1 / span 1 / span 12;
