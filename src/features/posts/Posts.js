@@ -7,6 +7,7 @@ import { selectAfter,
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Post } from "./Post";
 import { useEffect } from "react";
+import './posts.css';
 
 export const Posts = () => {
     const dispatch = useDispatch();
@@ -64,7 +65,7 @@ export const Posts = () => {
         dispatch(getPosts({subreddit: subredditSelection, after: searchAfter, before: searchBefore}));
     }
 
-    useEffect(firstRender, []);
+    useEffect(firstRender, [location]);
     //resets scroll position after a new page is loaded
     //reset the dependency array once more URL params implemented?
     useEffect(() => {
@@ -72,12 +73,14 @@ export const Posts = () => {
       }, [after])
 
     return (
-        <section className="posts">
+        <section className="posts-page">
             {arePostsLoading && <p>Loading...</p>}
-            {posts.map(post => {
-                //console.log(post);
-                return <Post postData={post.data} key={post.data.id}/>
-            })}
+            <div className="posts-container">
+                {posts.map(post => {
+                    //console.log(post);
+                    return <Post postData={post.data} key={post.data.id}/>
+                })}
+            </div>
             {!arePostsLoading && 
                 <button type="button" onClick={handlePrevPage}>&lt; Prev Page</button>
             }

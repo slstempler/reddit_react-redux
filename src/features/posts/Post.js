@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./posts.css"
 
 export const Post = ({postData}) => {
     const postUrl = `http://www.reddit.com/r/${postData.subreddit}/${postData.id}`;
@@ -9,15 +10,17 @@ export const Post = ({postData}) => {
     //console.log(postData.title);
     //console.log(postData);
     return (
-        <div>
+        // Post HAS thumbnail
+        // Post does NOT have thumbnail
+        // Post is NSFW
+        // Post is a Spoiler
+        <div className="posts-post">
             {thumbUrl && thumbUrl !== 'spoiler' && thumbUrl !== 'nsfw' && <img src={thumbUrl}></img>}
             {thumbUrl === 'spoiler' && <h5>Shh... Link is a Spoiler!</h5>}
             {thumbUrl === 'nsfw' && <h5>Hmmm... Link is NSFW</h5>}
             <br/>
-            <p>{postData.score} | {postData.title}</p>
-            <a href={postUrl}>www.reddit.com/r/{postData.subreddit}/{postData.id}</a>
-            <Link to={routeUrl}>Go to Thread</Link>
-            <p>====================</p>
+            <p className="posts-post-score">{postData.score} | </p><a href={postUrl} className="posts-post-link">{postData.title}</a>
+            <Link className="posts-post-thread" to={routeUrl}>Go to Thread</Link>
         </div>
     );
 }

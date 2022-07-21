@@ -16,7 +16,7 @@ export const SideBar = () => {
 
     return (
         <div className="sidebar-bar">
-            <p>=========POPULAR SUBREDDITS=========</p>
+            <p>===POPULAR SUBREDDITS===</p>
             {subreddits.map(sub => {
                 const path = '/r/' + sub.data.display_name;
                 return (

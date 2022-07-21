@@ -37,12 +37,32 @@
   }
 }
 
+/* Grid Styles */
+.page-container {
+  display: grid;
+  grid-template: 10rem auto / repeat(12, 1fr);
+  margin: 0px 1rem;
+}
+.navbar-layout {
+  grid-area: 1 / 1 / span 1 / span 12;
+
+}
+.sidebar-bar {
+  grid-area: 2 / 10 / span 5 / span 2;
+}
+.posts-page {
+  grid-area: 2 / 1 / auto / span 9;
+}
+
 /* Core UI Features */
 .scroll-button {
   position: sticky;
-  left: 1000px;
-  bottom: 50px;
+  left: 90vw;
+  bottom: 5vh;
   z-index: 10;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.616);
+  border-radius: 20%;
 }
 
 /* Sidebar Popular/Featured Subreddits */
