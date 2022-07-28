@@ -1,3 +1,6 @@
+* {
+  font-family: Roboto;
+}
 .App {
   text-align: center;
 }
@@ -40,29 +43,33 @@
 /* Grid Styles */
 .page-container {
   display: grid;
-  grid-template: 10rem auto / repeat(12, 1fr);
+  grid-template: 5rem auto / repeat(12, 1fr);
+  gap: 2rem;
   margin: 0px 5rem;
 }
 .navbar-layout {
   grid-area: 1 / 1 / span 1 / span 12;
-
 }
-.sidebar-bar {
-  grid-area: 2 / 10 / span 5 / span 2;
+.sidebar-container {
+  grid-area: 2 / 11 / span 5 / span 2;
 }
 .posts-page {
-  grid-area: 2 / 1 / auto / span 9;
+  grid-area: 2 / 1 / auto / span 10;
+}
+.thread-page {
+  grid-area: 2 / 1 / auto / span 10;
 }
 
 /* Core UI Features */
 .scroll-button {
   position: sticky;
   left: 90vw;
-  bottom: 5vh;
+  top: 90vh;
   z-index: 10;
   color: white;
   background-color: rgba(0, 0, 0, 0.616);
   border-radius: 20%;
+  font-size: 2rem;
 }
 
 /* Sidebar Popular/Featured Subreddits */

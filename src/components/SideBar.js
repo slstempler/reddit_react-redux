@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getSubreddits, selectSubreddits } from "../features/subreddits/subredditsSlice";
+import "./sidebar.css";
 
 export const SideBar = () => {
     const dispatch = useDispatch();
@@ -15,18 +16,19 @@ export const SideBar = () => {
     useEffect(firstRender, [location])
 
     return (
-        <div className="sidebar-bar">
-            <p>===POPULAR SUBREDDITS===</p>
+        <div className="sidebar-container">
+            <p>popular subreddits</p>
+            <ul className="sidebar-list">
             {subreddits.map(sub => {
                 const path = '/r/' + sub.data.display_name;
                 return (
-                    <>
+                    <li className="sidebar-item" key={sub.data.id}>
                         <Link className="sidebar-link" to={path} key={sub.data.id}>{sub.data.display_name}</Link>
-                        <br/>
-                    </>
+                    </li>
                 );
                 }
             )}
+            </ul>
         </div>
     )
 }

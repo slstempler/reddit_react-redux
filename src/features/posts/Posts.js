@@ -7,6 +7,7 @@ import { selectAfter,
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Post } from "./Post";
 import { useEffect } from "react";
+import { Button } from "@mui/material";
 import './posts.css';
 
 export const Posts = () => {
@@ -23,6 +24,7 @@ export const Posts = () => {
     //base case - getting before/after from store having used pages
     let after = useSelector(selectAfter);
     let before = useSelector(selectBefore);
+
 
     // Search Parameters Handling: 
     // 1. if we have a direct URL query, prefer that
@@ -81,11 +83,11 @@ export const Posts = () => {
                     return <Post postData={post.data} key={post.data.id}/>
                 })}
             </div>
-            {!arePostsLoading && 
-                <button type="button" onClick={handlePrevPage}>&lt; Prev Page</button>
+            {!arePostsLoading && (searchParams.has('after') || searchParams.has('before')) &&
+                <Button type="button" variant="outlined" onClick={handlePrevPage} className="posts-pageNav">&lt; Prev Page</Button> 
             }
             {!arePostsLoading &&
-                <button type="button" onClick={handleNextPage}>Next Page &gt;</button>
+                <Button type="button" variant="outlined" onClick={handleNextPage} className="posts-pageNav">&gt; Next Page</Button> 
             }
         </section>
     );

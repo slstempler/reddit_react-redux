@@ -11,6 +11,7 @@ import {Posts} from '../features/posts/Posts';
 import { SearchBar } from '../components/searchbar/SearchBar';
 import { SideBar } from '../components/SideBar';
 import { Thread } from '../features/thread/Thread';
+import { NavBar } from '../components/NavBar';
 import KeyboardDoubleArrowUp from '@mui/icons-material/KeyboardDoubleArrowUp'
 
 export default function App() {
@@ -22,21 +23,17 @@ export default function App() {
   }
 
   return (
-      <div className="page-container">
-        <div className='navbar-layout'>
-          <h1>TESTING</h1>
-          <NavLink to="/">Back home!</NavLink>
-          <button onClick={() => navigate(-1)}>Back</button>
-          <button onClick={() => navigate(1)}>Forward</button>
-          <SearchBar className="searchbar"/>
+      <div className="wrapper">
+        <NavBar />
+        <div className="page-container">
+          <SideBar />
+          <Routes>
+            <Route path="/" element={<p>Home :)</p>}/>
+            <Route path="/r/:subreddit" element={<Posts />} />
+            <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
+          </Routes>
+          <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop}/>
         </div>
-        <SideBar />
-        <Routes>
-          <Route path="/" element={<p>Home :)</p>}/>
-          <Route path="/r/:subreddit" element={<Posts />} />
-          <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
-        </Routes>
-        <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop}/>
       </div>
   );
 }
