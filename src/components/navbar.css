@@ -1,0 +1,62 @@
+.navbar-layout {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    background-color: orchid;
+    color: white;
+    padding: 0px 2rem;
+    /* border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black; */
+}
+
+.nav-header {
+    text-decoration: none;
+    color: white;
+}
+.nav-header:hover {
+    color: red;
+    transition: color ease-in-out 0.2s;
+}
+
+.nav-button, .nav-button * {
+    color: white;
+    font-size: 2rem;
+    margin: 0.2rem;
+}
+
+.nav-button:hover {
+    color: red;
+    transition: color ease-in 0.2s;
+    cursor: pointer;
+}
+
+.nav-button:active {
+    color: yellow;
+    transition: color ease-in 0.05s;
+}
+
+.search-field {
+    border: none;
+    border-radius: 0.8rem;
+    height: 1.5rem;
+    width: 30rem;
+    margin: 0px 1rem;
+    padding: 8px;
+}
+
+.search-field:invalid {
+    background-color: lightcoral;
+    border: 1px solid rgb(233, 80, 80);
+    outline: 1px solid rgb(233, 80, 80);
+    transition: background-color ease-in 0.2s;
+}
+
+.form-submit-icon {
+    color: white;
+}
+
+.nav-button .MuiSvgIcon-fontSizeMedium, .nav-button.MuiSvgIcon-fontSizeMedium {
+    font-size: 1.8rem;
+}

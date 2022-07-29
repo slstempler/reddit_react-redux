@@ -1,0 +1,143 @@
+.posts-page {
+    /* display:  flex; */
+    /* grid-template-columns: subgrid;
+    grid-column:  2 / span 8; */
+    margin: 0px auto; 
+}
+
+.posts-container {
+    display: flex;
+    box-sizing: border-box;
+    max-width: 100%;
+    flex-flow: row wrap;
+    gap: 10px;
+    /* grid-template-columns: subgrid;
+    grid-column: 1 / 1 / auto / span 8; */
+}
+
+/* Handling for Posts Cards */
+.posts-post {
+    width: 28%;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    min-height: 20rem;
+    border-radius: 2%;
+    /* box-shadow: 1px 1px rgba(0,0,0,0.5); */
+    border: 1px solid rgb(92, 92, 92);
+    padding: 1rem;
+    justify-content: space-around;
+    position: relative;
+}
+/* Handles Background colors for odd/even cards */
+/* Even Cards - Dark Background, white text */
+.posts-post:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.774);
+    color: white;
+}
+.posts-post:nth-child(even) .posts-post-link {
+    color: white;
+}
+.posts-post:nth-child(even) .posts-post-link:visited {
+    color: lightslategray;
+}
+.posts-post:nth-child(even):hover {
+    background-color:rgba(41, 41, 41, 0.774);
+    transition: background-color ease-in-out 0.2s;
+}
+.posts-post:nth-child(even) .MuiButton-outlined {
+    color: white;
+    border: 1px solid white;
+}
+.posts-post:nth-child(even) .MuiButton-outlined:hover {
+    background-color: rgba(0,0,0,0.5);
+    transition: background-color ease-in-out 0.2s;
+}
+
+/* Cards - Light Background */
+.posts-post:nth-child(odd) {
+    background-color: rgba(211, 211, 211, 0.8);
+}
+
+.posts-post:nth-child(odd):hover {
+    background-color: rgba(170, 170, 170, 0.8);
+    border: 1px solid black;
+    transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
+}
+.posts-post:nth-child(odd) .MuiButton-outlined:hover {
+    background-color: rgba(25, 118, 210, 0.2);
+    transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
+}
+
+
+.posts-post a {
+    text-decoration: none;
+    align-self: center;
+}
+
+.posts-post-thumbnail {
+    max-width: 80%;
+    max-height: 50%;
+    align-self: center;
+}
+.posts-post-score, .posts-post-thread, .posts-post-link {
+    margin-left: 5%;
+    padding: 0.5rem;
+    display: inline;
+}
+
+.posts-post-nothumb {
+    margin: 0px 5%;
+}
+
+.posts-post-thread {
+    display: inline;
+}
+
+.posts-post-nsfw, .posts-post-spoiler {
+    align-self: center;
+}
+
+.posts-post-score {
+    align-self: flex-start;
+}
+
+/* Buttons */
+.posts-page .posts-pageNav {
+    margin: 1rem 1rem 0px 1rem;
+}
+.posts-page .posts-pageNav:first-of-type {
+    margin-left: 0px;
+}
+.posts-page .posts-pageNav:last-of-type {
+    margin-right: 0px;
+}
+.posts-page .posts-pageNav:hover {
+    background-color: rgba(25, 118, 210, 0.2);
+    transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
+}
+
+/* Video Card Styles */
+.vid-thumb-container {
+    display: flex;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+}
+
+.posts-vid-thumbnail, .posts-link-thumbnail {
+    max-height: 100%;
+    max-width: 90%;
+    align-self: center;
+}
+
+.vid-thumb-icon {
+    box-sizing: border-box;
+    position: absolute;
+    align-self: center;
+    /*left: 50%;
+    transform: translateX(-50%); */
+    z-index: 5;
+    font-size: 2rem;
+}
+

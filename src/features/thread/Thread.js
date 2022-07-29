@@ -86,22 +86,63 @@ export const Thread = () => {
     //useEffect(extractImages, [location, imagePath]);
   
     
+    //checks text for regex pattern, replaces all matches with replacer function
+    //function looks for square bracket opening and closing paren
+    //replaces matched text with an anchor element with relevant body and link attribute
+    const parseSelfText = (text = '') => {
+        
+        //console.log(text);
 
-    const parseSelfText = (text) => {
-        //checks text for regex pattern, replaces all matches with replacer function
-        //function looks for square bracket opening and closing paren
-        //replaces matched text with an anchor element with relevant body and link attribute
-        console.log(text);
         text = text.replace(/\[(.*?)\)/gm, (match) => {
             let replaceAnchor = '<a href=""></a>';
             let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
             let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
-            replacerLink = replacerLink.replace(/&amp;/g, '&');
-            replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
-            console.log(replaceAnchor);
-            return replaceAnchor;
+            if(replacerLink){
+                replacerLink = replacerLink.replace(/&amp;/g, '&');
+                replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
+                //console.log(replaceAnchor);
+                return replaceAnchor;
+            }
         });
         return text;
+    }
+
+    //recursive function pulls relevant data out of top-level comments
+    const expandReplies = (parent, layer, inheritId = 'none') => {
+        // if there are replies, return [parent, expandReplies(parent)]
+        if(parent) if(parent.data) if(parent.data.replies) {
+            let childArray = [<p key={parent.data.id}
+                                id={parent.data.id} 
+                                className={"comment-replies " + "layer-" + layer + " childOf-" + inheritId}>
+                            {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
+                            {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
+            let searchPath = parent.data.replies.data.children; //sets JSON path for for...of
+            for(let reply of searchPath) {
+                // how to set the classes for all replies to make sense??
+                childArray.push(expandReplies(reply, layer+1, inheritId)); //adds result of expandReplies to childArray
+            }
+            return childArray;
+        }
+        // if NO replies, return [parent]
+        else {
+            return [<p key={parent.data.id}
+                    id={parent.data.id}
+                    className={"comment-noreply " + "layer-" + layer + " childOf-" + inheritId}>
+           {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
+           {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
+        }
+    }
+
+    //style toggle handler for comments collapsing
+    const toggleCollapse = (e, element) => {
+        e.preventDefault();
+        console.log(e.target);
+        console.log(element);
+        e.target.classList.toggle('hide-replies'); //toggle THIS
+        e.target.innerHTML = e.target.classList.contains('hide-replies') && '+'; //modify button if the replies are hidden
+        //handling for hiding descendants
+        document.getElementById(element).classList.toggle('collapse-replies')
+        document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
     }
 
     //returns post content + Comments components(?)
@@ -138,8 +179,11 @@ export const Thread = () => {
                 <section className="thread-comments">
                     <p>====THREAD COMMENTS BELOW====</p>
                     {threadData.map(comment => {
-                        return <p key={comment.data.id}>{comment.data.score} | {comment.data.body}</p>
+                        return <div key={comment.data.id + "-container"}>{expandReplies(comment, 0)}</div>
                     })}
+                    {/* {threadData.map(comment => {
+                        return <div key={comment.data.id}>{comment.data.score} | {parse(parseSelfText(comment.data.body))}</div>
+                    })} */}
                 </section>
             </div>
         )} 
