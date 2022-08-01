@@ -33,6 +33,27 @@ const extractImages = (action) => {
 const parseThreadData = (action) => {
 
 }
+
+//checks text for regex pattern, replaces all matches with replacer function
+//function looks for square bracket opening and closing paren
+//replaces matched text with an anchor element with relevant body and link attribute
+export const parseSelfText = (text = '') => {
+    
+    //console.log(text);
+
+    text = text.replace(/\[(.*?)\)/gm, (match) => {
+        let replaceAnchor = '<a href=""></a>';
+        let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
+        let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
+        if(replacerLink){
+            replacerLink = replacerLink.replace(/&amp;/g, '&');
+            replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
+            //console.log(replaceAnchor);
+            return replaceAnchor;
+        }
+    });
+    return text;
+}
  
 export const threadSlice = createSlice({
     name: 'thread',

@@ -13,8 +13,10 @@ import { getThread,
     selectContent,
     updateThreadImage, 
     selectThreadImagePath,
-    selectThreadContentType} from "./threadSlice";
+    selectThreadContentType,
+    parseSelfText} from "./threadSlice";
 import parse from 'html-react-parser';
+import { Comment } from "./Comment";
 import './thread.css'
 
 export const Thread = () => {
@@ -86,26 +88,7 @@ export const Thread = () => {
     //useEffect(extractImages, [location, imagePath]);
   
     
-    //checks text for regex pattern, replaces all matches with replacer function
-    //function looks for square bracket opening and closing paren
-    //replaces matched text with an anchor element with relevant body and link attribute
-    const parseSelfText = (text = '') => {
-        
-        //console.log(text);
-
-        text = text.replace(/\[(.*?)\)/gm, (match) => {
-            let replaceAnchor = '<a href=""></a>';
-            let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
-            let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
-            if(replacerLink){
-                replacerLink = replacerLink.replace(/&amp;/g, '&');
-                replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
-                //console.log(replaceAnchor);
-                return replaceAnchor;
-            }
-        });
-        return text;
-    }
+    
 
     //recursive function pulls relevant data out of top-level comments
     const expandReplies = (parent, layer, inheritId = 'none') => {
@@ -178,9 +161,15 @@ export const Thread = () => {
                 </section>
                 <section className="thread-comments">
                     <p>====THREAD COMMENTS BELOW====</p>
-                    {threadData.map(comment => {
+                    {threadData.map(comment=> {
+                        return <Comment commentData={comment} threadLayer={0}/>
+                    })}
+                   {/*
+                   {threadData.map(comment => {
                         return <div key={comment.data.id + "-container"}>{expandReplies(comment, 0)}</div>
                     })}
+                    
+                    */}
                     {/* {threadData.map(comment => {
                         return <div key={comment.data.id}>{comment.data.score} | {parse(parseSelfText(comment.data.body))}</div>
                     })} */}

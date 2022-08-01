@@ -6,42 +6,59 @@
     padding: 0.8rem;
 }
 
-.thread-collapse {
+.comment-container {
+    border: 1px solid black;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    width: inherit;
+}
+
+.collapse-replies div, .load-more{
     display: none;
 }
+
+.collapse-replies .comment-body {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.collapse-replies.comment-container {
+    color: gray;
+    background-color: gainsboro;
+}
+
+
 
 /* Styles for comment threads by layer of replies */
 .layer-0 {
     background-color: orangered;
 }
-
-.layer-1 {
+.is-reply {
     margin-left: 1.5rem;
+}
+.layer-1 {
     background-color: sandybrown;
 }
 
 .layer-2 {
-    margin-left: 3rem;
     background-color: tan;
 }
 
 .layer-3 {
-    margin-left: 4.5rem;
     background-color: gray
 }
 
 .layer-4 {
-    margin-left: 6rem;
     background-color: cadetblue;
 }
 
 .layer-5 {
-    margin-left: 7.5rem;
     background-color: seagreen;
 }
 
 .layer-6 {
-    margin-left: 9rem;
     background-color: lightskyblue
 }
 
