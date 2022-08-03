@@ -24,16 +24,16 @@ export default function App() {
 
   return (
       <div className="wrapper">
-        <NavBar />
         <div className="page-container">
+          <NavBar />
           <SideBar />
           <Routes>
             <Route path="/" element={<p>Home :)</p>}/>
             <Route path="/r/:subreddit" element={<Posts />} />
             <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
           </Routes>
-          <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop}/>
         </div>
+        <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop}/>
       </div>
   );
 }

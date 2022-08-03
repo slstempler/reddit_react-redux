@@ -43,8 +43,6 @@ export const SearchBar = () => {
                 <input hidden />
                 <SearchIcon className="form-submit-icon" size="medium"/>
             </IconButton>
-
-
         </form>
     )
 }

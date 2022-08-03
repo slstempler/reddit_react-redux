@@ -17,7 +17,7 @@ export const SideBar = () => {
 
     return (
         <div className="sidebar-container">
-            <p>popular subreddits</p>
+            <p className="sidebar-header">popular subreddits</p>
             <ul className="sidebar-list">
             {subreddits.map(sub => {
                 const path = '/r/' + sub.data.display_name;

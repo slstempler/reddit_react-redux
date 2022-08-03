@@ -12,6 +12,10 @@
     font-size: 1.23rem;
 }
 
+.sidebar-header {
+    margin-bottom: 1rem;
+}
+
 .sidebar-list {
     width: 100%;
     list-style: none;
@@ -42,3 +46,9 @@
 .sidebar-link {
     text-decoration: none;
 } 
+
+@media screen and (max-width: 480px) {
+    .sidebar-container {
+      display: none;
+    }
+  }

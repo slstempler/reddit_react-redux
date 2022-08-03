@@ -2,7 +2,7 @@
     /* display:  flex; */
     /* grid-template-columns: subgrid;
     grid-column:  2 / span 8; */
-    margin: 0px auto; 
+    margin: 0px auto;
 }
 
 .posts-container {
@@ -103,16 +103,16 @@
 }
 
 /* Buttons */
-.posts-page .posts-pageNav {
-    margin: 1rem 1rem 0px 1rem;
+.posts-page .posts-pageNav, .thread-page .posts-pageNav {
+    margin: 1rem 1rem 2rem 1rem;
 }
-.posts-page .posts-pageNav:first-of-type {
+.posts-page .posts-pageNav:first-of-type, .thread-page .posts-pageNav:first-of-type {
     margin-left: 0px;
 }
-.posts-page .posts-pageNav:last-of-type {
+.posts-page .posts-pageNav:last-of-type, .thread-page .posts-pageNav:last-of-type {
     margin-right: 0px;
 }
-.posts-page .posts-pageNav:hover {
+.posts-page .posts-pageNav:hover, .thread-page .posts-pageNav:hover {
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
 }
@@ -141,3 +141,17 @@
     font-size: 2rem;
 }
 
+/* Screen Breakpoints */
+
+@media screen and (max-width: 480px) {
+    .posts-container {
+        margin: 1rem;
+    }
+    .posts-post {
+        width: 100%;
+   }
+   .posts-page {
+        padding: 0px 1rem;
+   }
+
+}

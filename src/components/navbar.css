@@ -40,10 +40,10 @@
 .search-field {
     border: none;
     border-radius: 0.8rem;
-    height: 1.5rem;
+    height: 2.35rem;
     width: 30rem;
     margin: 0px 1rem;
-    padding: 8px;
+    padding: 1rem;
 }
 
 .search-field:invalid {
@@ -57,6 +57,38 @@
     color: white;
 }
 
+.navbar-smallformat {
+    display: none;
+    align-self: center;
+}
+
 .nav-button .MuiSvgIcon-fontSizeMedium, .nav-button.MuiSvgIcon-fontSizeMedium {
     font-size: 1.8rem;
 }
+
+@media screen and (max-width: 480px) {
+    .nav-header {
+        font-size: 1.5rem;
+    }
+    .search-field {
+        width: 10rem;   
+    }
+    .navbar-layout {
+        padding: 1rem;
+    }
+    .navbar-layout .nav-button {
+        display: none;
+    }
+    .navbar-layout label {
+        display: none;
+    }
+    .navbar-smallformat {
+        display: inline;
+        color: white;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .search-field {
+        max-width: 15rem;
+    }
+  }

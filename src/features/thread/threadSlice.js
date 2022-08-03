@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { fetchThread } from "../../components/api";
 
 export const getThread = createAsyncThunk(
@@ -34,6 +34,57 @@ const parseThreadData = (action) => {
 
 }
 
+const extractReplies = (parent, layer, ancestor = '') => {
+    // if there are replies, return [parent, expandReplies(parent)]
+    if(parent.data.replies) {
+        let childArray = [{id: parent.data.id,
+                        depth: parent.data.depth,
+                        author: parent.data.author,
+                        score: parent.data.score,
+                        body: parent.data.body,
+                        permalink: parent.data.permalink,
+                        parentid: ancestor,
+                        showReplies: true}, []]
+        let searchPath = parent.data.replies.data.children; //sets JSON path for for...of
+        for(let reply of searchPath) {
+            childArray[1].push(extractReplies(reply, layer+1, parent.data.id)); //adds result of expandReplies to childArray
+        }
+        return childArray;
+    }
+    // if NO replies, return [parent]
+    else {
+        return {id: parent.data.id,
+            depth: parent.data.depth,
+            author: parent.data.author,
+            score: parent.data.score,
+            body: parent.data.body,
+            permalink: parent.data.permalink,
+            parentid: ancestor,
+            showReplies: true}
+    }
+}
+const replySearcher = (array, commentId) => {
+    //look through objects, if id matches commentId, swap the ShowReplies flag
+    for(let comment of array){
+        //if an object, this is an actual comment - search for match
+        if(typeof current(comment) === 'object'){
+            //swap if a match!
+            if(comment.id === commentId){
+                console.log(`located!`);
+                comment.showReplies = comment.showReplies ? false : true;
+            }
+            else {
+                continue;
+            }
+        }
+        //if an array, this contains replies - keep digging lower
+        else if(typeof comment === 'array'){
+            console.log(`array found!`);
+            replySearcher(comment, commentId);
+        }
+    }
+}
+
 //checks text for regex pattern, replaces all matches with replacer function
 //function looks for square bracket opening and closing paren
 //replaces matched text with an anchor element with relevant body and link attribute
@@ -63,11 +114,25 @@ export const threadSlice = createSlice({
         isLoading: false,
         hasError: false,
         imagePath: '',
-        contentType: ''
+        contentType: '',
+        replyChains: [],
     },
     reducers: {
         updateThreadImage(state, action) {
             state.imagePath = action.payload;
+        },
+        toggleCommentCollapse(state, action) {
+            // redo
+            // if(state.replyChains[action.payload].replies){
+            //     state.replyChains[action.payload].replies = false;
+            // }
+            // else if(!state.replyChains[action.payload].replies){
+            //     state.replyChains[action.payload].replies = true;
+            // }
+            // else {
+            //     throw new Error('comment reducer machine broke');
+            // }
+            replySearcher(state.replyChains, action.payload);
         },
     },
     extraReducers: (builder) => {
@@ -86,8 +151,16 @@ export const threadSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = false;
                 state.thread = [];
+                state.replyChains = [];
                 state.content = action.payload[0].data.children[0].data;
                 state.thread = action.payload[1].data.children;
+                // data mappting for use in comment components
+                // call expandReplies
+                
+                for(let comment of action.payload[1].data.children){
+                    state.replyChains.push(extractReplies(comment, 0));
+                }
+                //conent type filtering for core link
                 state.imagePath = extractImages(action);
                 if(state.content.is_video){
                     state.contentType = 'video';
@@ -122,5 +195,6 @@ export const selectContent = state => state.thread.content;
 export const selectThread = state => state.thread.thread;
 export const selectThreadImagePath = state => state.thread.imagePath;
 export const selectThreadContentType = state => state.thread.contentType;
-export const {updateThreadImage} = threadSlice.actions;
+export const selectReplyChains = state => state.thread.replyChains;
+export const {updateThreadImage, toggleCommentCollapse} = threadSlice.actions;
 export default threadSlice.reducer;

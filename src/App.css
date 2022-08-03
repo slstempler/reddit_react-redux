@@ -1,5 +1,8 @@
 * {
   font-family: Roboto;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 .App {
   text-align: center;
@@ -40,31 +43,42 @@
   }
 }
 
+#root {
+  height: 100vh;
+}
+
+.wrapper {
+  height: 100%;
+}
+
 /* Grid Styles */
 .page-container {
   display: grid;
-  grid-template: 5rem auto / repeat(12, 1fr);
+  grid-template: 5rem 1fr / repeat(12, 1fr);
   gap: 2rem;
-  margin: 0px 5rem;
+  height: min-content;
 }
 .navbar-layout {
   grid-area: 1 / 1 / span 1 / span 12;
 }
 .sidebar-container {
-  grid-area: 2 / 11 / span 5 / span 2;
+  grid-area: 2 / 10 / auto / span 2;
 }
 .posts-page {
   grid-area: 2 / 1 / auto / span 10;
+  padding-left: 4rem;
 }
 .thread-page {
-  grid-area: 2 / 1 / auto / span 10;
+  grid-area: 2 / 1 / auto / span 9;
+  padding-left: 4rem;
+  
 }
 
 /* Core UI Features */
 .scroll-button {
   position: sticky;
-  left: 90vw;
-  top: 90vh;
+  left: 92vw;
+  bottom: 10vh; 
   z-index: 10;
   color: white;
   background-color: rgba(0, 0, 0, 0.616);
@@ -79,5 +93,22 @@
 .sidebar-link {
   font-weight: bold;
   font-family: 'Roboto';
+}
+
+
+/* Breakpoints */
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+
+  .sidebar-container {
+    display: none;
+    /* actually display as hamburger menu?? */
+  }
+
+  /* realign posts-page to be single-tile wide, full-width */
+  .posts-page {
+    grid-area: 2 / 1 / auto / span 12;
+  }
 }
 

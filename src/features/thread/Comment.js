@@ -1,12 +1,24 @@
 import React from "react";
 import './thread.css';
 import parse from 'html-react-parser';
-import { parseSelfText } from "./threadSlice";
+import { parseSelfText, toggleCommentCollapse, selectReplyChains } from "./threadSlice";
+import { IconButton } from "@mui/material";
+import UnfoldMore from "@mui/icons-material/UnfoldMore";
+import UnfoldLess from "@mui/icons-material/UnfoldLess";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadLayer = 0}) => {
+    const dispatch = useDispatch();
+
+    //state selector for collapsable threads
+    const replyChains = useSelector(selectReplyChains);
+
+    //simple variables for semantic clarity in handling content
     const hasReplies = commentData.data.replies ? true : false;
     const hasBody = commentData.data.body ? true : false;
-    console.log(`comment ${commentData.data.id} status -  replies: ${hasReplies} body: ${hasBody}`);
+    const commentID = commentData.data.id;
+    
+    //console.log(`comment ${commentID} status -  replies: ${hasReplies} body: ${hasBody}`);
     
     /* expandreplies logic
     const expandReplies = (parent, layer) => {
@@ -37,30 +49,35 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
 
     //style toggle handler for comments collapsing
     const toggleCollapse = (e, element) => {
-        e.preventDefault();
-        console.log(e.target);
-        console.log(element);
+        e.preventDefault(); //prevents default
         e.target.classList.toggle('hide-replies'); //toggle THIS
-        e.target.innerHTML = e.target.classList.contains('hide-replies') ? '+' : '-'; //modify button if the replies are hidden
+        dispatch(toggleCommentCollapse(element)); //dispatches action
+        //showReplies = e.target.classList.contains('hide-replies') ? false : true;
+        //console.log(`show replies? ${showReplies}`);
+        // e.target.innerHTML = e.target.classList.contains('hide-replies') ? '+' : '-'; //modify button if the replies are hidden
         //handling for hiding descendants
-        document.getElementById(element).classList.toggle('collapse-replies')
+        document.getElementById(element).classList.toggle('collapse-replies');
         //document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
     }
     
     return (
-        <div key={commentData.data.id}
-            id={commentData.data.id} 
+        <div key={commentID}
+            id={commentID} 
             className={"comment-container " + "layer-" + threadLayer.toString() 
                     + (threadLayer >= 1 ? " is-reply" : " top-level")
                     + (hasBody ? " no-hide" : " load-more")}>
-            {hasBody && 
+
+            <IconButton onClick={(e) => {toggleCollapse(e, commentID)}}>
+                 <UnfoldLess className="comment-button" size='medium' ></UnfoldLess>
+                    {/* <UnfoldMore className="comment-button" size='medium' ></UnfoldMore>  */}
+            </IconButton>
+            {hasBody &&
             <>
-                <button onClick={(e) => {toggleCollapse(e, commentData.data.id)}}>-</button>
                 <br></br>
                 <span className="comment-body">{hasBody && parse(parseSelfText(commentData.data.body))}</span>
                 <br></br>
                 <a href={"https://www.reddit.com" + commentData.data.permalink}>Permalink</a>
-                <span> {commentData.data.id}</span>
+                <span> {commentID}</span>
             </>
             }
             {/* if there are replies, recursively drill down through, mapping those out */}

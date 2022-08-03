@@ -17,7 +17,9 @@ import { getThread,
     parseSelfText} from "./threadSlice";
 import parse from 'html-react-parser';
 import { Comment } from "./Comment";
+import { Button } from "@mui/material";
 import './thread.css'
+import '../posts/posts.css'
 
 export const Thread = () => {
     const dispatch = useDispatch();
@@ -86,7 +88,10 @@ export const Thread = () => {
     //useEffect pulls thread data on first render, fires on location change
     useEffect(renderThread, [location]);
     //useEffect(extractImages, [location, imagePath]);
-  
+    //resets scroll position in thread
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [location])
     
     
 
@@ -132,12 +137,14 @@ export const Thread = () => {
     if(threadData !== [] && !threadError && !threadLoading) { 
         return (
             <div className="thread-page">
-                <Link to={subredditPath}>Back to subreddit!</Link>
+                <Button type="button" variant="outlined" onClick={() => navigate("/" + threadContent.subreddit_name_prefixed)}
+                    className="posts-pageNav">Back to {threadContent.subreddit_name_prefixed}</Button> 
+                <Button type="button" variant="outlined" onClick={() => window.open("https://www.reddit.com" + threadContent.permalink, "_blank")}
+                    className="posts-pageNav">View on Reddit</Button>
                 <section className="thread-content">
-                    <p>=====THREAD CONTENT HERE======</p>
                     {/* displays thread title at top of page */}
                     {threadContent &&
-                        <p>{threadContent.title}</p>
+                        <h2>{threadContent.title}</h2>
                     }
                     {/* previews thumbnail when that is best option */}
                     {(threadContentType == 'other' || threadContentType == 'image' || threadContentType == 'gif') && 
@@ -160,7 +167,6 @@ export const Thread = () => {
                     }
                 </section>
                 <section className="thread-comments">
-                    <p>====THREAD COMMENTS BELOW====</p>
                     {threadData.map(comment=> {
                         return <Comment commentData={comment} threadLayer={0}/>
                     })}
@@ -174,6 +180,8 @@ export const Thread = () => {
                         return <div key={comment.data.id}>{comment.data.score} | {parse(parseSelfText(comment.data.body))}</div>
                     })} */}
                 </section>
+                <Button type="button" variant="outlined" onClick={() => navigate("/" + threadContent.subreddit_name_prefixed)}
+                    className="posts-pageNav">Back to {threadContent.subreddit_name_prefixed}</Button>
             </div>
         )} 
     else return (<p>Loading...</p>);
