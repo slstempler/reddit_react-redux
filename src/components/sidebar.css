@@ -10,6 +10,7 @@
     justify-self: flex-start;
     align-self: center;
     font-size: 1.23rem;
+    z-index: 3;
 }
 
 .sidebar-header {
@@ -32,6 +33,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .sidebar-item:first-child{
     margin-top: 0px;
 }
@@ -45,6 +47,7 @@
 
 .sidebar-link {
     text-decoration: none;
+    z-index: 8;
 } 
 
 @media screen and (max-width: 480px) {

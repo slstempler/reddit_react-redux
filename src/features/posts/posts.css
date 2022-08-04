@@ -11,6 +11,7 @@
     max-width: 100%;
     flex-flow: row wrap;
     gap: 10px;
+    justify-content: center;
     /* grid-template-columns: subgrid;
     grid-column: 1 / 1 / auto / span 8; */
 }
@@ -75,13 +76,22 @@
     align-self: center;
 }
 
-.posts-post-thumbnail {
-    max-width: 80%;
-    max-height: 50%;
+.posts-post-thumbnail, .posts-vid-thumbnail, .posts-link-thumbnail {
+    max-width: 85%;
+    max-height: 75%;
     align-self: center;
 }
-.posts-post-score, .posts-post-thread, .posts-post-link {
+.posts-post-thread{
     margin-left: 5%;
+    padding: 0.5rem;
+    display: inline;
+}
+
+.posts-post-score {
+    padding: 0.5rem;
+}
+
+.posts-post-link {
     padding: 0.5rem;
     display: inline;
 }
@@ -123,12 +133,6 @@
     width: 100%;
     align-content: center;
     justify-content: center;
-}
-
-.posts-vid-thumbnail, .posts-link-thumbnail {
-    max-height: 100%;
-    max-width: 90%;
-    align-self: center;
 }
 
 .vid-thumb-icon {

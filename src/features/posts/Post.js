@@ -50,7 +50,12 @@ export const Post = ({postData}) => {
             postTypeFlag = 'self-noMedia';
         }
         else if(postData.media_metadata) {
-            postTypeFlag = 'self-withMedia';
+            if(postData.media_metadata[Object.keys(postData.media_metadata)[0]].e === 'RedditVideo'){
+                postTypeFlag = 'self-redditVideo';
+            }
+            else{
+                postTypeFlag = 'self-withMedia';
+            }
         }
         else {
             postTypeFlag = 'self-other';
@@ -112,7 +117,7 @@ export const Post = ({postData}) => {
                 </>
             }
         {/* Post does NOT have thumbnail */}
-            {(postTypeFlag === 'self-noMedia' || postTypeFlag === 'other-noPreview' || postHideFlag) &&
+            {(postTypeFlag === 'self-noMedia' || postTypeFlag === 'other-noPreview' || postHideFlag || postTypeFlag === 'self-redditVideo') &&
             /* {((!thumbUrl || thumbUrl === 'nsfw' || thumbUrl === 'spoiler')) && */
                 <>
                     {thumbUrl === 'nsfw' &&  

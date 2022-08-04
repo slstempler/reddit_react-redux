@@ -65,8 +65,7 @@
   grid-area: 2 / 10 / auto / span 2;
 }
 .posts-page {
-  grid-area: 2 / 1 / auto / span 10;
-  padding-left: 4rem;
+  grid-area: 2 / 1 / auto / span 9;
 }
 .thread-page {
   grid-area: 2 / 1 / auto / span 9;
@@ -84,6 +83,10 @@
   background-color: rgba(0, 0, 0, 0.616);
   border-radius: 20%;
   font-size: 2rem;
+}
+.scroll-button:hover {
+  background-color: rgba(0,0,0, 0.5);
+  transition: background-color 0.2s ease-in;
 }
 
 /* Sidebar Popular/Featured Subreddits */

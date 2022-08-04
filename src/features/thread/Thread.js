@@ -148,22 +148,27 @@ export const Thread = () => {
                     }
                     {/* previews thumbnail when that is best option */}
                     {(threadContentType == 'other' || threadContentType == 'image' || threadContentType == 'gif') && 
-                        <img src={threadContent.url} alt="thread url"></img>
+                        <a href={threadContent.url} target="_blank"><img src={threadContent.url} alt="thread url"></img></a>
                     }
                     {/* previews gallery when there is a gallery */}
                     {threadContentType === 'gallery' &&
-                        <img src={threadImagePath} alt="gallery preview"></img>
+                        <a href={threadImagePath} target="_blank"><img src={threadImagePath} alt="gallery preview"></img></a>
                     }
                     {/* video workaround using reddit Embed, only when video flag is true */}
                     {threadContentType === 'video' &&
+                    <>
+                        
                         <iframe src={videoEmbedPath}
                                 sandbox="allow-scripts allow-same-origin allow-popups"
                                 style={{border: 'none'}}
                                 height='476'
                                 width='640'
-                                scrolling="no"></iframe>}
+                                scrolling="no"></iframe>
+                    </>}
                     {threadContent.is_self &&
-                        <span className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</span>
+                            // code for attempt at pulling New Video Player links
+                            // <iframe src={"https://reddit.com/link/" + threadContent.id + "/video/" + Object.keys(threadContent.media_metadata)[0] + "/player"}></iframe>
+                            <span className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</span>
                     }
                 </section>
                 <section className="thread-comments">

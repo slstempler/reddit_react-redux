@@ -12,7 +12,7 @@ export const NavBar = () => {
 
     return (
         <div className='navbar-layout'>
-          <NavLink to="/" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
+          <NavLink to="/r/popular" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
           <SearchBar className="searchbar"/>
           <div className="nav-button-tray">
             <IconButton>
