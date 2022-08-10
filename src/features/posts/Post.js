@@ -77,7 +77,12 @@ export const Post = ({postData}) => {
     
     return (
         <div className="posts-post" onClick={navToThread}>
-        <span className="posts-post-score">{postData.score}</span>
+            <div className="posts-topBar">
+                <span className="posts-post-score">{postData.score}</span>
+                <a href={"https://www.reddit.com/u/" + postData.author} 
+                className="posts-post-user">{postData.author}</a>
+            </div>
+        
         {console.log(`${postData.title} is ${postTypeFlag}`)}
         {/* Post is A VIDEO */}
             {postTypeFlag === 'video' && !postHideFlag &&
@@ -129,7 +134,10 @@ export const Post = ({postData}) => {
                     <a href={postUrl} className="posts-post-nothumb posts-post-link">{postData.title}</a>               
                 </>
             }
-        <Button type="button" variant="outlined" onClick={navToThread} className="posts-post-thread">Go To Thread</Button> 
+            <div className="posts-post-threadTray">
+                <Button type="button" variant="outlined" onClick={navToThread} className="posts-post-thread thread-text">Go To Thread</Button>
+                <Button type="button" variant="text" onClick={navToThread} className="posts-post-numComments thread-text">{postData.num_comments} Comments</Button>
+            </div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './thread.css';
 import parse from 'html-react-parser';
 import { parseSelfText, toggleCommentCollapse, selectReplyChains } from "./threadSlice";
@@ -18,6 +18,7 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
     const hasBody = commentData.data.body ? true : false;
     const commentID = commentData.data.id;
     
+    let [showHide, setShowHide] = useState(true);
     //console.log(`comment ${commentID} status -  replies: ${hasReplies} body: ${hasBody}`);
     
     /* expandreplies logic
@@ -57,6 +58,7 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
         // e.target.innerHTML = e.target.classList.contains('hide-replies') ? '+' : '-'; //modify button if the replies are hidden
         //handling for hiding descendants
         document.getElementById(element).classList.toggle('collapse-replies');
+        showHide ? setShowHide(false) : setShowHide(true);
         //document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
     }
     
@@ -68,16 +70,20 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
                     + (hasBody ? " no-hide" : " load-more")}>
 
             <IconButton onClick={(e) => {toggleCollapse(e, commentID)}}>
-                 <UnfoldLess className="comment-button" size='medium' ></UnfoldLess>
-                    {/* <UnfoldMore className="comment-button" size='medium' ></UnfoldMore>  */}
+                 {showHide && <UnfoldLess className="comment-button" size='medium' ></UnfoldLess>}
+                    {!showHide && <UnfoldMore className="comment-button" size='medium' ></UnfoldMore>}
             </IconButton>
             {hasBody &&
             <>
+                <a href={"https://www.reddit.com/u/" + commentData.data.author}
+                className="comment-user"
+                target="_blank">{commentData.data.author}</a>
+                <span className="comment-body">{parse(parseSelfText(commentData.data.body))}</span>
                 <br></br>
-                <span className="comment-body">{hasBody && parse(parseSelfText(commentData.data.body))}</span>
-                <br></br>
-                <a href={"https://www.reddit.com" + commentData.data.permalink}>Permalink</a>
-                <span> {commentID}</span>
+                <div className="comment-details">
+                    <a href={"https://www.reddit.com" + commentData.data.permalink}>Permalink</a>
+                    <span className="comment-score"> | {commentData.data.score} points</span>
+                </div>
             </>
             }
             {/* if there are replies, recursively drill down through, mapping those out */}

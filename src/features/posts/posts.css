@@ -23,11 +23,12 @@
     flex-flow: column;
     align-items: flex-start;
     min-height: 20rem;
+    max-height: 35rem;
     border-radius: 2%;
     /* box-shadow: 1px 1px rgba(0,0,0,0.5); */
     border: 1px solid rgb(92, 92, 92);
     padding: 1rem;
-    justify-content: space-around;
+    justify-content: space-between;
     position: relative;
 }
 /* Handles Background colors for odd/even cards */
@@ -36,7 +37,9 @@
     background-color: rgba(0, 0, 0, 0.774);
     color: white;
 }
-.posts-post:nth-child(even) .posts-post-link {
+.posts-post:nth-child(even) .posts-post-link,
+.posts-post:nth-child(even) .MuiButton-outlined,
+.posts-post:nth-child(even) .MuiButton-text {
     color: white;
 }
 .posts-post:nth-child(even) .posts-post-link:visited {
@@ -46,13 +49,18 @@
     background-color:rgba(41, 41, 41, 0.774);
     transition: background-color ease-in-out 0.2s;
 }
+
 .posts-post:nth-child(even) .MuiButton-outlined {
-    color: white;
     border: 1px solid white;
 }
+
 .posts-post:nth-child(even) .MuiButton-outlined:hover {
     background-color: rgba(0,0,0,0.5);
     transition: background-color ease-in-out 0.2s;
+}
+.posts-post:nth-child(even) .MuiButton-text:hover {
+    text-shadow: 0 0 5px #fff;
+    transition: text-shadow ease-in 0.2s;
 }
 
 /* Cards - Light Background */
@@ -69,8 +77,13 @@
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
 }
+.posts-post:nth-child(odd) .MuiButton-text:hover {
+    text-shadow: 0 0 5px #6bb5ff;
+    background-color: initial;
+    transition: text-shadow ease-in 0.2s;
+}
 
-
+/* Link & Thumbnail Styles */
 .posts-post a {
     text-decoration: none;
     align-self: center;
@@ -100,31 +113,56 @@
     margin: 0px 5%;
 }
 
-.posts-post-thread {
+.posts-post-thread, .posts-postnumComments {
     display: inline;
 }
 
 .posts-post-nsfw, .posts-post-spoiler {
     align-self: center;
+    font-size: 1rem;
 }
 
 .posts-post-score {
     align-self: flex-start;
 }
 
-/* Buttons */
+/* Buttons & Card Data */
+.posts-post-threadTray {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+}
+.posts-post-threadTray .thread-text {
+    font-size: 0.85rem;
+}
+
 .posts-page .posts-pageNav, .thread-page .posts-pageNav {
     margin: 1rem 1rem 2rem 1rem;
 }
-.posts-page .posts-pageNav:first-of-type, .thread-page .posts-pageNav:first-of-type {
-    margin-left: 0px;
+.posts-page .posts-pageNav:first-of-type {
+    margin-left: 2rem;
 }
-.posts-page .posts-pageNav:last-of-type, .thread-page .posts-pageNav:last-of-type {
+.posts-page .posts-pageNav:last-of-type {
     margin-right: 0px;
 }
 .posts-page .posts-pageNav:hover, .thread-page .posts-pageNav:hover {
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
+}
+
+.posts-topBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Thread Page Exclusive Styles */
+.thread-page .posts-pageNav:first-of-type {
+    margin-left: 0px;
+}
+.thread-page .posts-pageNav:last-of-type {
+    margin-left: 0px;
 }
 
 /* Video Card Styles */

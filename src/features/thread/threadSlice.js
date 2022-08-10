@@ -89,20 +89,31 @@ const replySearcher = (array, commentId) => {
 //function looks for square bracket opening and closing paren
 //replaces matched text with an anchor element with relevant body and link attribute
 export const parseSelfText = (text = '') => {
-    
-    //console.log(text);
+    let replaceAnchor = '<a href=""></a>';
 
-    text = text.replace(/\[(.*?)\)/gm, (match) => {
-        let replaceAnchor = '<a href=""></a>';
-        let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
-        let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
-        if(replacerLink){
-            replacerLink = replacerLink.replace(/&amp;/g, '&');
-            replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
-            //console.log(replaceAnchor);
-            return replaceAnchor;
-        }
-    });
+    //console.log(text);
+    if(text.match(/\[(.*?)\)/gm,)) {
+        //console.log(`found reddit markdown: ${text}`)
+        text = text.replace(/\[(.*?)\)/gm, (match) => {
+            
+            let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
+            let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
+            if(replacerLink){
+                replacerLink = replacerLink.replace(/&amp;/g, '&');
+                replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
+                
+                return replaceAnchor;
+            }
+        });
+    }
+    // if we do NOT see reddit markdown, attempt generic replace w/regex: 
+    else {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, match => {
+                return `<a href=${match}>${match}</a>`;
+            });
+    }
+
     return text;
 }
  

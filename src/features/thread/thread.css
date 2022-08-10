@@ -4,6 +4,7 @@
 
 .comment-body {
     display: block; 
+    margin-left: 1rem;
 }
 
 .comment-replies, .comment-noreply {
@@ -31,6 +32,9 @@
     color: gray;
     background-color: gainsboro;
 }
+.collapse-replies .comment-user {
+    color: gray;
+}
 
 /* Content Styling */
 .thread-content {
@@ -48,41 +52,70 @@
     max-width: 95%;
 }
 
+/* Comments - Other Elements */
+.comment-user, .comment-details a {
+    text-decoration: none;
+}
+.comment-details {
+    margin-left: 1rem;
+    padding-bottom: 0.2rem;
+}
+.comment-details * {
+    display: inline;
+    white-space: nowrap;
+    text-align: center;
+    align-self: center;
+    font-size: 0.9rem;
+}
+
 /* Styles for comment threads by layer of replies */
 .layer-0 {
-    background-color: orangered;
+    /* background-color: orangered; */
+    background-color: rgb(135, 206, 250);
 }
 .is-reply {
     margin-left: 1.5rem;
 }
 .layer-1 {
-    background-color: sandybrown;
+    /* background-color: sandybrown; */
+    background-color: rgb(167, 219, 252);
 }
 
 .layer-2 {
-    background-color: tan;
+    /* background-color: tan; */
+    background-color: rgb(194, 231, 253);
 }
 
 .layer-3 {
-    background-color: gray
+    /* background-color: gray */
+    background-color: rgb(210, 238, 255);
 }
 
 .layer-4 {
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
+    background-color: rgb(225, 242, 252);
 }
 
 .layer-5 {
-    background-color: seagreen;
+    /* background-color: seagreen; */
+    background-color: rgb(135, 206, 250);
 }
 
 .layer-6 {
-    background-color: lightskyblue
+    /* background-color: lightskyblue */
+    background-color: rgb(167, 219, 252);
 }
 
 .layer-7 {
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
+    background-color: rgb(194, 231, 253);
 }
 
 .layer-8 {
-    background-color: lightgoldenrodyellow;
+    /* background-color: lightgoldenrodyellow; */
+    background-color: rgb(210, 238, 255);
 }
+
+.layer-9 {
+    background-color: rgb(225, 242, 252);
+}   

@@ -49,6 +49,8 @@ export const Thread = () => {
     let imagePath = ''
     let imageDoRender = false;
     
+    // Other Elements
+    let threadURL = "https://www.reddit.com" + threadContent.permalink;
 
     // Video Handling
     let videoEmbedPath = `https://www.redditmedia.com/r/${subreddit}/comments/${threadId}/?embed=true&theme=dark`;
@@ -133,14 +135,23 @@ export const Thread = () => {
         document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
     }
 
+    // Copy Thread URL to Clipboard
+    const clipboardThread = (e) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(threadURL);
+        alert("copied to clipboard!");
+    }
+
     //returns post content + Comments components(?)
     if(threadData !== [] && !threadError && !threadLoading) { 
         return (
             <div className="thread-page">
                 <Button type="button" variant="outlined" onClick={() => navigate("/" + threadContent.subreddit_name_prefixed)}
                     className="posts-pageNav">Back to {threadContent.subreddit_name_prefixed}</Button> 
-                <Button type="button" variant="outlined" onClick={() => window.open("https://www.reddit.com" + threadContent.permalink, "_blank")}
+                <Button type="button" variant="outlined" onClick={() => window.open(threadURL, "_blank")}
                     className="posts-pageNav">View on Reddit</Button>
+                <Button type="button" variant="outlined" onClick={clipboardThread} 
+                        className="posts-pageNav">Copy Thread Link</Button>
                 <section className="thread-content">
                     {/* displays thread title at top of page */}
                     {threadContent &&
