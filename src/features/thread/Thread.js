@@ -179,7 +179,7 @@ export const Thread = () => {
                     {threadContent.is_self &&
                             // code for attempt at pulling New Video Player links
                             // <iframe src={"https://reddit.com/link/" + threadContent.id + "/video/" + Object.keys(threadContent.media_metadata)[0] + "/player"}></iframe>
-                            <span className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</span>
+                            <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
                     }
                 </section>
                 <section className="thread-comments">

@@ -1,5 +1,5 @@
 .thread-selftext > a {
-    display: block;
+    display: inline;
 }
 
 .comment-body {
@@ -50,6 +50,13 @@
 .thread-content img {
     max-height: 90vh;
     max-width: 95%;
+}
+.thread-content hr {
+    margin-top: 1rem;
+}
+
+.thread-content h3 {
+    margin: 1rem 0rem;
 }
 
 /* Comments - Other Elements */

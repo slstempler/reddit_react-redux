@@ -90,11 +90,18 @@ const replySearcher = (array, commentId) => {
 //replaces matched text with an anchor element with relevant body and link attribute
 export const parseSelfText = (text = '') => {
     let replaceAnchor = '<a href=""></a>';
+    let finalText = text;
+    const linebreakRegex = /(---|----)/gmi;
+    const headingRegex = /###.*/gmi;
+    const boldRegex = /\*\*.*\*\*/gmi;
+    const bulletRegex = /^(\*|-) /gmi;
+
+    
 
     //console.log(text);
-    if(text.match(/\[(.*?)\)/gm,)) {
-        //console.log(`found reddit markdown: ${text}`)
-        text = text.replace(/\[(.*?)\)/gm, (match) => {
+    if(finalText.match(/\[(.*?)\)/gm,)) {
+        console.log(`found reddit markdown: ${finalText}`)
+        finalText = finalText.replace(/\[(.*?)\)/gm, (match) => {
             
             let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
             let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
@@ -109,12 +116,33 @@ export const parseSelfText = (text = '') => {
     // if we do NOT see reddit markdown, attempt generic replace w/regex: 
     else {
             const urlRegex = /(https?:\/\/[^\s]+)/g;
-            return text.replace(urlRegex, match => {
+            return finalText.replace(urlRegex, match => {
                 return `<a href=${match}>${match}</a>`;
             });
     }
 
-    return text;
+    finalText = finalText.replace(linebreakRegex, (match) => {
+        console.log(`found match ${match}!`);
+        return "<br><hr><br>";
+    });
+
+    finalText = finalText.replace(headingRegex, (match) => {
+        console.log(`heading: ${match}`);
+        let noMarkdown = match.slice(3); //removes ###
+        return `<h3>${noMarkdown}</h3>`;
+    });
+
+    finalText = finalText.replace(boldRegex, match => {
+        let noMarkdown = match.slice(2, match.length-2);
+        return `<strong>${noMarkdown}</strong>`;
+    });
+
+    finalText = finalText.replace(bulletRegex, match => {
+        let noMarkdown = match.slice(1);
+        return `&#x2022; ${noMarkdown}`;
+    });
+
+    return finalText;
 }
  
 export const threadSlice = createSlice({
