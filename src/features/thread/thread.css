@@ -42,6 +42,7 @@
     flex-direction: column;
     align-items: center;
     text-align: left;
+    margin-bottom: 1rem;
 }
 .thread-content h2 {
     align-self: flex-start;
@@ -58,6 +59,12 @@
 .thread-content h3 {
     margin: 1rem 0rem;
 }
+.thread-content blockquote {
+    margin: 0.5rem 0rem 0.5rem 2rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid grey;
+    font-style: italic;
+}
 
 /* Comments - Other Elements */
 .comment-user, .comment-details a {
@@ -73,6 +80,10 @@
     text-align: center;
     align-self: center;
     font-size: 0.9rem;
+}
+.comment-OP {
+    font-weight: bold;
+    font-style: italic;
 }
 
 /* Styles for comment threads by layer of replies */

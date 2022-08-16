@@ -90,18 +90,65 @@ const replySearcher = (array, commentId) => {
 //replaces matched text with an anchor element with relevant body and link attribute
 export const parseSelfText = (text = '') => {
     let replaceAnchor = '<a href=""></a>';
-    let finalText = text;
-    const linebreakRegex = /(---|----)/gmi;
-    const headingRegex = /###.*/gmi;
-    const boldRegex = /\*\*.*\*\*/gmi;
-    const bulletRegex = /^(\*|-) /gmi;
+    let finalText = text + "\n "; //trailing spacing handles odd regex interactions
+    const horizLineRegex = /(---|----)/gmi;
+    const heading1Regex = /^#.*/gmi;
+    const heading2Regex = /^##.*/gmi;
+    const heading3Regex = /^###.*/gmi;
+    const heading4Regex = /^####.*/gmi;
+    const heading5Regex = /^#####.*/gmi;
+    const heading6Regex = /^######.*/gmi;
+    const italicRegex = /\*.*\*|\_.*\_/gmi;
+    const boldRegex = /\*\*.*\*\*|\_\_.*\_\_/gmi;
+    const boldItalRegex = /\*\*\*.*\*\*\*|\_\_\_.*\_\_\_/gmi;
+    const bulletRegex = /^[\-\+\*]{1}\s.*?\n[\n|[[:blank:]]/sgmi;
+    const subBulletRegex = /^[\-\+\*]{1}\s.*$/gmi;
+    //not picking up ">" in regex - due to HTML parser?
+    const blockquoteRegex = /(^&gt; ?.+?)((\r?\n\r?\n\w)|\Z)/gmis;
+    const newlineRegex = /\n/gmi;
+
+    // Blockquotes: > in front of paragraph
+    finalText = finalText.replace(blockquoteRegex, (match, p1, p2) => {
+       // console.log(`found blockquote: ${p1}`)
+       // console.log(p2);
+        let noMarkdown = p1.slice(4);
+        return `<blockquote>${noMarkdown}</blockquote> ${p2}`;
+    });
+
+    // Bullets: * or - (maybe want <ul>?)
+    finalText = finalText.replace(bulletRegex, (match) => {
+        console.log(`located bulleted list!`);
+        let final = match.replace(subBulletRegex, subMatch => {
+            return `<li>${subMatch}</li>`;
+        });
+        return `<ul>${final}</ul>`
+    });
+
+    // Bold: **bold** or __bold__
+    finalText = finalText.replace(boldRegex, match => {
+        let noMarkdown = match.slice(2, match.length-2);
+        return `<strong>${noMarkdown}</strong>`;
+    });
+
+    // Italic: *italic* or _italic_ 
+    finalText = finalText.replace(italicRegex, match => {
+        let noMarkdown = match.slice(1, match.length-1);
+        return `<em>${noMarkdown}</em>`;
+    });
+
+    // Bold + Italic: ***bold-ital*** or ___bold-ital___
+    finalText = finalText.replace(boldItalRegex, match => {
+        let noMarkdown = match.slice(3, match.length-3);
+        return `<strong><em>${noMarkdown}</em></strong>`;
+    })
 
     
 
-    //console.log(text);
-    if(finalText.match(/\[(.*?)\)/gm,)) {
-        console.log(`found reddit markdown: ${finalText}`)
-        finalText = finalText.replace(/\[(.*?)\)/gm, (match) => {
+    
+    // pulls formatted URL into anchor
+    if(finalText.match(/\[(.*?)\)\s/gm,)) {
+        //console.log(`found reddit markdown: ${finalText}`)
+        finalText = finalText.replace(/\[.*?\)\s/gm, (match) => {
             
             let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
             let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
@@ -116,31 +163,50 @@ export const parseSelfText = (text = '') => {
     // if we do NOT see reddit markdown, attempt generic replace w/regex: 
     else {
             const urlRegex = /(https?:\/\/[^\s]+)/g;
-            return finalText.replace(urlRegex, match => {
+            finalText = finalText.replace(urlRegex, match => {
                 return `<a href=${match}>${match}</a>`;
             });
     }
 
-    finalText = finalText.replace(linebreakRegex, (match) => {
+    
+    
+
+    // Headings h1-h6
+    finalText = finalText.replace(heading1Regex, (match) => {
+        let noMarkdown = match.slice(2); //removes MD
+        return `<h1>${noMarkdown}</h1>`;
+    });
+    finalText = finalText.replace(heading2Regex, (match) => {
+        let noMarkdown = match.slice(2);
+        return `<h2>${noMarkdown}</h3>`;
+    });
+    finalText = finalText.replace(heading3Regex, (match) => {
+        let noMarkdown = match.slice(3); 
+        return `<h3>${noMarkdown}</h3>`;
+    });
+    finalText = finalText.replace(heading4Regex, (match) => {
+        let noMarkdown = match.slice(4);
+        return `<h4>${noMarkdown}</h4>`;
+    });
+    finalText = finalText.replace(heading5Regex, (match) => {
+        let noMarkdown = match.slice(5);
+        return `<h5>${noMarkdown}</h5>`;
+    });
+    finalText = finalText.replace(heading6Regex, (match) => {
+        let noMarkdown = match.slice(6);
+        return `<h6>${noMarkdown}</h6>`;
+    });
+
+    // replace newline characters with HTML 
+    finalText = finalText.replace(newlineRegex, "<br>");
+
+    finalText = finalText.replace(horizLineRegex, (match) => {
         console.log(`found match ${match}!`);
         return "<br><hr><br>";
     });
 
-    finalText = finalText.replace(headingRegex, (match) => {
-        console.log(`heading: ${match}`);
-        let noMarkdown = match.slice(3); //removes ###
-        return `<h3>${noMarkdown}</h3>`;
-    });
-
-    finalText = finalText.replace(boldRegex, match => {
-        let noMarkdown = match.slice(2, match.length-2);
-        return `<strong>${noMarkdown}</strong>`;
-    });
-
-    finalText = finalText.replace(bulletRegex, match => {
-        let noMarkdown = match.slice(1);
-        return `&#x2022; ${noMarkdown}`;
-    });
+    // Replace &#x200B; zero-width space
+    finalText = finalText.replace("&amp;#x200B;", "&nbsp;");
 
     return finalText;
 }

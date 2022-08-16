@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './thread.css';
 import parse from 'html-react-parser';
-import { parseSelfText, toggleCommentCollapse, selectReplyChains } from "./threadSlice";
+import { parseSelfText, toggleCommentCollapse, selectReplyChains, selectContent } from "./threadSlice";
 import { IconButton } from "@mui/material";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
@@ -12,11 +12,13 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
 
     //state selector for collapsable threads
     const replyChains = useSelector(selectReplyChains);
+    const threadContent = useSelector(selectContent);
 
     //simple variables for semantic clarity in handling content
     const hasReplies = commentData.data.replies ? true : false;
     const hasBody = commentData.data.body ? true : false;
     const commentID = commentData.data.id;
+    const userIsOP = commentData.data.author === threadContent.author;
     
     let [showHide, setShowHide] = useState(true);
     //console.log(`comment ${commentID} status -  replies: ${hasReplies} body: ${hasBody}`);
@@ -76,8 +78,9 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
             {hasBody &&
             <>
                 <a href={"https://www.reddit.com/u/" + commentData.data.author}
-                className="comment-user"
+                className={"comment-user" + " " + (userIsOP ? "comment-OP" : "not-OP")}
                 target="_blank">{commentData.data.author}</a>
+                {userIsOP && <span><strong><em> - OP</em></strong></span>}
                 <span className="comment-body">{parse(parseSelfText(commentData.data.body))}</span>
                 <br></br>
                 <div className="comment-details">
