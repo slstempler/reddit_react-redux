@@ -1,3 +1,7 @@
+/* General Styles */
+.navbar-layout {
+    padding: 1rem;
+}
 .navbar-layout {
     display: flex;
     align-content: center;
@@ -5,19 +9,43 @@
     justify-content: space-between;
     background-color: orchid;
     color: white;
-    padding: 0px 2rem;
-    /* border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black; */
 }
 
+/* Logo / Header */
 .nav-header {
     text-decoration: none;
     color: white;
+    font-size: 1.5rem;
 }
 .nav-header:hover {
     color: red;
     transition: color ease-in-out 0.2s;
+}
+
+/* Search Field */
+.search-field {
+    border: none;
+    border-radius: 0.8rem;
+    height: 2.35rem;
+    width: 10rem;
+    margin: 0px 1rem;
+    padding: 1rem;
+}
+.search-field:invalid {
+    background-color: lightcoral;
+    border: 1px solid rgb(233, 80, 80);
+    outline: 1px solid rgb(233, 80, 80);
+    transition: background-color ease-in 0.2s;
+}
+.form-submit-icon {
+    color: white;
+}
+
+/* Buttons & Button Tray */
+.nav-button-tray {
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 .nav-button, .nav-button * {
@@ -25,70 +53,63 @@
     font-size: 2rem;
     margin: 0.2rem;
 }
-
 .nav-button:hover {
     color: red;
     transition: color ease-in 0.2s;
     cursor: pointer;
 }
-
 .nav-button:active {
     color: yellow;
     transition: color ease-in 0.05s;
 }
 
-.search-field {
-    border: none;
-    border-radius: 0.8rem;
-    height: 2.35rem;
-    width: 30rem;
-    margin: 0px 1rem;
-    padding: 1rem;
-}
-
-.search-field:invalid {
-    background-color: lightcoral;
-    border: 1px solid rgb(233, 80, 80);
-    outline: 1px solid rgb(233, 80, 80);
-    transition: background-color ease-in 0.2s;
-}
-
-.form-submit-icon {
+.navbar-smallformat {
+    display: inline;
     color: white;
+    align-self: center;
+    justify-self: center;
+}
+.nav-button-tray .navbar-standardformat {
+    display: none;
 }
 
-.nav-button-tray .navbar-smallformat {
+.navbar-layout .nav-button, .navbar-layout label {
     display: none;
-    align-self: center;
 }
 
 .nav-button .MuiSvgIcon-fontSizeMedium, .nav-button.MuiSvgIcon-fontSizeMedium {
     font-size: 1.8rem;
 }
 
-@media screen and (max-width: 480px) {
-    .nav-header {
-        font-size: 1.5rem;
-    }
-    .search-field {
-        width: 10rem;   
-    }
-    .navbar-layout {
-        padding: 1rem;
-    }
-    .navbar-layout .nav-button {
-        display: none;
-    }
-    .navbar-layout label {
-        display: none;
-    }
-    .navbar-smallformat {
-        display: inline;
-        color: white;
-    }
-}
+    
 @media screen and (max-width: 1000px) {
     .search-field {
         max-width: 15rem;
     }
   }
+
+/* Tablets, Large Phones in Landscape*/
+@media screen and (min-width: 480px) {
+
+}
+
+/* Large Tablets in Landscape, Desktop */
+@media screen and (min-width: 1025px) {
+    .search-field {
+        width: 30rem;
+    }
+    .navbar-layout {
+        padding: 0px 2rem;
+        /* border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black; */
+    }
+    .navbar-layout .nav-button, .navbar-layout label, 
+    .nav-button-tray .navbar-standardformat {
+        display: initial;
+    }
+    .nav-button-tray .navbar-smallformat {
+        display: none;
+        align-self: center;
+    }
+}

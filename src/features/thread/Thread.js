@@ -48,6 +48,7 @@ export const Thread = () => {
     const threadImagePath = useSelector(selectThreadImagePath);
     let imagePath = ''
     let imageDoRender = false;
+    const previewImagePath = threadContent.preview && threadContent.preview.images[0].source.url.replace(/&amp;/g, '&'); //sets thread preview image to source img, only if one is available
     
     // Other Elements
     let threadURL = "https://www.reddit.com" + threadContent.permalink;
@@ -158,8 +159,12 @@ export const Thread = () => {
                         <h2>{threadContent.title}</h2>
                     }
                     {/* previews thumbnail when that is best option */}
-                    {(threadContentType == 'other' || threadContentType == 'image' || threadContentType == 'gif') && 
+                    {(threadContentType == 'image' || threadContentType == 'gif') && 
                         <a href={threadContent.url} target="_blank"><img src={threadContent.url} alt="thread url"></img></a>
+                    }
+                    {/* when thread previews from an external link */}
+                    {(threadContentType == 'other') &&
+                        <a href={threadContent.url} target="_blank"><img src={previewImagePath}></img></a>
                     }
                     {/* previews gallery when there is a gallery */}
                     {threadContentType === 'gallery' &&

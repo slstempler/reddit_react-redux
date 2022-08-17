@@ -15,14 +15,14 @@ export const NavBar = () => {
           <NavLink to="/r/popular" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
           <SearchBar className="searchbar"/>
           <div className="nav-button-tray">
-            <IconButton>
+            <IconButton className="nav-button-wrapper navbar-standardformat">
               <ArrowBack className="nav-button" size='medium' onClick={() => navigate(-1)}>Back</ArrowBack>
             </IconButton>
-            <IconButton>
+            <IconButton className="nav-button-wrapper navbar-standardformat">
               <ArrowForward className="nav-button" size='medium' onClick={() => navigate(1)}>Forward</ArrowForward>
             </IconButton>
-            <IconButton>
-                <Menu className="navbar-smallformat" size="medium"/>
+            <IconButton className="nav-button-wrapper navbar-smallformat">
+              <Menu className="navbar-smallformat" size="medium"/>
             </IconButton>
           </div>
         </div>

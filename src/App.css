@@ -117,3 +117,12 @@
   }
 }
 
+/* Tablets, Large Phones in Landscape*/
+@media screen and (min-width: 480px) {
+
+}
+
+/* Large Tablets in Landscape, Desktop */
+@media screen and (min-width: 1025px) {
+
+}

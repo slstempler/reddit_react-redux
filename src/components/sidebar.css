@@ -1,57 +1,65 @@
 .sidebar-container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-}
-
-.sidebar-container p {
-    justify-self: flex-start;
-    align-self: center;
-    font-size: 1.23rem;
-    z-index: 3;
-}
-
-.sidebar-header {
-    margin-bottom: 1rem;
-}
-
-.sidebar-list {
-    width: 100%;
-    list-style: none;
-    text-decoration: none;
-    padding: 0px;
-}
-.sidebar-item {
-    list-style: inherit;
-    padding: 0.5rem;
-    border: 1px solid black;
-    background-color: rgba(218,112,214, 0.2);
-    border-radius: 0.5rem;
-    margin: 0.8rem 0px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.sidebar-item:first-child{
-    margin-top: 0px;
-}
-.sidebar-item:last-child {
-    margin-bottom: 0px;
-}
-.sidebar-item:hover {
-    background-color: rgba(218,112,214, 0.5);
-    transition: background-color ease-in-out 0.2s;
-}
-
-.sidebar-link {
-    text-decoration: none;
-    z-index: 8;
-} 
-
-@media screen and (max-width: 480px) {
-    .sidebar-container {
-      display: none;
-    }
+    display: none;
   }
+
+  /* Tablets, Large Phones in Landscape*/
+  @media screen and (min-width: 480px) {
+
+  }
+
+  /* Large Tablets in Landscape, Desktop */
+  @media screen and (min-width: 1025px) {
+    .sidebar-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .sidebar-container p {
+        justify-self: flex-start;
+        align-self: center;
+        font-size: 1.23rem;
+        z-index: 3;
+    }
+    
+    .sidebar-header {
+        margin-bottom: 1rem;
+    }
+    
+    .sidebar-list {
+        width: 100%;
+        list-style: none;
+        text-decoration: none;
+        padding: 0px;
+    }
+    .sidebar-item {
+        list-style: inherit;
+        padding: 0.5rem;
+        border: 1px solid black;
+        background-color: rgba(218,112,214, 0.2);
+        border-radius: 0.5rem;
+        margin: 0.8rem 0px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .sidebar-item:first-child{
+        margin-top: 0px;
+    }
+    .sidebar-item:last-child {
+        margin-bottom: 0px;
+    }
+    .sidebar-item:hover {
+        background-color: rgba(218,112,214, 0.5);
+        transition: background-color ease-in-out 0.2s;
+    }
+    
+    .sidebar-link {
+        text-decoration: none;
+        z-index: 8;
+    } 
+    
+}
+
