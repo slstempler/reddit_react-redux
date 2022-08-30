@@ -45,34 +45,49 @@
   }
 }
 
+html {
+  width: 100%;
+}
+
 #root {
   height: 100vh;
+  width: 100%;
 }
 
 .wrapper {
   height: 100%;
+  width: 100%;
 }
 
 /* Grid Styles */
 .page-container {
   display: grid;
-  grid-template: 5rem 1fr / repeat(12, 1fr);
+  grid-template: 5rem auto / repeat(4, 1fr);
+  grid-template-areas:
+    "nav nav nav nav"
+    "page page page page";
   gap: 2rem;
   height: min-content;
 }
+
 .navbar-layout {
-  grid-area: 1 / 1 / span 1 / span 12;
+  /* grid-area: 1 / 1 / span 1 / span 12; */
+  grid-area: nav;
 }
 .sidebar-container {
-  grid-area: 2 / 10 / auto / span 2;
+  /* grid-area: 2 / 10 / auto / span 2; */
+  grid-area: sidebar;
+  display: none;
 }
-.posts-page {
-  grid-area: 2 / 1 / auto / span 9;
+.posts-page, .thread-page {
+  /* grid-area: 2 / 1 / auto / span 9; */
+  grid-area: page;
 }
 .thread-page {
-  grid-area: 2 / 1 / auto / span 9;
-  padding-left: 4rem;
-  
+  /* grid-area: 2 / 1 / auto / span 9; */
+  margin: 0px 1rem;
+  padding: 0px;
+
 }
 
 /* Core UI Features */
@@ -103,19 +118,6 @@
 
 /* Breakpoints */
 
-/* Mobile */
-@media screen and (max-width: 480px) {
-
-  .sidebar-container {
-    display: none;
-    /* actually display as hamburger menu?? */
-  }
-
-  /* realign posts-page to be single-tile wide, full-width */
-  .posts-page {
-    grid-area: 2 / 1 / auto / span 12;
-  }
-}
 
 /* Tablets, Large Phones in Landscape*/
 @media screen and (min-width: 480px) {
@@ -124,5 +126,19 @@
 
 /* Large Tablets in Landscape, Desktop */
 @media screen and (min-width: 1025px) {
+    .page-container {
+      grid-template: 5rem 1fr / repeat(12, 1fr);
+      grid-template-areas: 
+        "nav nav nav nav nav nav nav nav nav nav nav nav"
+        "page page page page page page page page page sidebar sidebar gutterw";
+    }
 
+    .thread-page {
+
+      padding-left: 4rem;
+    }
+
+    .sidebar-container {
+      display: initial;
+    }
 }

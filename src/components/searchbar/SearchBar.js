@@ -39,7 +39,7 @@ export const SearchBar = () => {
                 pattern="^[A-Za-z0-9]+$"
                 onChange={handleChange}>
             </input>
-            <IconButton type="submit" className="form-submit nav-button" size="medium">
+            <IconButton type="submit" className="form-submit nav-button navbar-standardformat" size="medium">
                 <input hidden />
                 <SearchIcon className="form-submit-icon" size="medium"/>
             </IconButton>

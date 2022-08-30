@@ -147,12 +147,14 @@ export const Thread = () => {
     if(threadData !== [] && !threadError && !threadLoading) { 
         return (
             <div className="thread-page">
-                <Button type="button" variant="outlined" onClick={() => navigate("/" + threadContent.subreddit_name_prefixed)}
-                    className="posts-pageNav">Back to {threadContent.subreddit_name_prefixed}</Button> 
-                <Button type="button" variant="outlined" onClick={() => window.open(threadURL, "_blank")}
-                    className="posts-pageNav">View on Reddit</Button>
-                <Button type="button" variant="outlined" onClick={clipboardThread} 
-                        className="posts-pageNav">Copy Thread Link</Button>
+                <div className="thread-nav">
+                    <Button type="button" variant="outlined" onClick={() => navigate("/" + threadContent.subreddit_name_prefixed)}
+                        className="posts-pageNav thread-nav-button">Back to {threadContent.subreddit_name_prefixed}</Button> 
+                    <Button type="button" variant="outlined" onClick={() => window.open(threadURL, "_blank")}
+                        className="posts-pageNav thread-nav-button">View on Reddit</Button>
+                    <Button type="button" variant="outlined" onClick={clipboardThread} 
+                            className="posts-pageNav thread-nav-button">Copy Thread Link</Button>
+                </div>
                 <section className="thread-content">
                     {/* displays thread title at top of page */}
                     {threadContent &&
@@ -177,9 +179,10 @@ export const Thread = () => {
                         <iframe src={videoEmbedPath}
                                 sandbox="allow-scripts allow-same-origin allow-popups"
                                 style={{border: 'none'}}
-                                height='476'
-                                width='640'
-                                scrolling="no"></iframe>
+                                // height='476'
+                                // width='640'
+                                scrolling="yes"
+                                className="thread-direct-embed"></iframe>
                     </>}
                     {threadContent.is_self &&
                             // code for attempt at pulling New Video Player links

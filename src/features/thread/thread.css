@@ -3,10 +3,19 @@
 }
 
 .comment-body {
-    display: block; 
-    margin-left: 1rem;
+    display: block;
+    margin: 0rem 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.comment-user {
+    display: inline-block;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
 }
 
 .comment-replies, .comment-noreply {
@@ -37,6 +46,22 @@
 .collapse-replies .comment-user {
     color: gray;
 }
+/* Thread Navigation Buttons */
+.thread-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.thread-page .thread-nav-button {
+    width: 100%;
+    margin: 0.5rem 0px;
+}
+.thread-page .thread-nav-button:first-child {
+    margin-top: 0px;
+}
+.thread-page .thread-nav-button:last-child {
+    margin-bottom: 2rem;
+}
 
 /* Content Styling */
 .thread-content {
@@ -45,14 +70,19 @@
     align-items: center;
     text-align: left;
     margin-bottom: 1rem;
+    max-width: 100vw;
+}
+.thread-content * {
+    max-width: 100%;
 }
 .thread-content h2 {
     align-self: flex-start;
     margin-bottom: 1rem;
 }
-.thread-content img {
+.thread-content > img {
     max-height: 90vh;
     max-width: 95%;
+    margin: 0px auto;
 }
 .thread-content hr {
     margin-top: 0.5rem;
@@ -62,10 +92,15 @@
     margin: 1rem 0rem;
 }
 .thread-page blockquote {
-    margin: 0.5rem 0rem 0.5rem 2rem;
+    margin: 0.5rem;
     padding-left: 0.5rem;
     border-left: 2px solid grey;
     font-style: italic;
+}
+
+.thread-direct-embed {
+    width: 100%;
+    height: 440px;
 }
 
 /* Comments - Other Elements */
@@ -93,9 +128,7 @@
     /* background-color: orangered; */
     background-color: rgb(135, 206, 250);
 }
-.is-reply {
-    margin-left: 1.5rem;
-}
+
 .layer-1 {
     /* background-color: sandybrown; */
     background-color: rgb(167, 219, 252);
@@ -148,5 +181,31 @@
 
 /* Large Tablets in Landscape, Desktop */
 @media screen and (min-width: 1025px) {
+    .is-reply {
+        margin-left: 1.5rem;
+    }
+    .thread-page .thread-nav {
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+        margin: 0rem auto 2rem auto;
+    }
+    .thread-page .thread-nav-button {
+        max-width: 29%;
+        padding: 0.5rem;
+        margin: 0rem 2rem;
+    }
+    /* is this worth redoing w/mobile query to reduce CSS text? */
+    .thread-page .thread-nav-button:first-child, .thread-page .thread-nav-button:last-child {
+        padding: 0.5rem;
+        margin: initial;
+    }
+    
+    .thread-page blockquote {
+        margin-left: 2rem;
+    }
 
+    .comment-body {
+        margin-left: 1rem;
+    }
 }

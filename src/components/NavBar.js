@@ -21,9 +21,29 @@ export const NavBar = () => {
             <IconButton className="nav-button-wrapper navbar-standardformat">
               <ArrowForward className="nav-button" size='medium' onClick={() => navigate(1)}>Forward</ArrowForward>
             </IconButton>
-            <IconButton className="nav-button-wrapper navbar-smallformat">
+            <IconButton className="nav-button-wrapper navbar-smallformat" 
+              onClick={(e) => {
+                console.log(document.getElementsByClassName("navbar-expandable"));
+                document.getElementById("navbar-expandable").classList.toggle('hamburger-closed');
+                document.getElementById('navbar-expandable').classList.toggle('hamburger-open');
+              }}
+            >
               <Menu className="navbar-smallformat" size="medium"/>
             </IconButton>
+          </div>
+          <div id="navbar-expandable" className="navbar-expandable navbar-smallformat hamburger-closed">
+              <ul class="navbar-dropdown-menu">
+                <li>
+                  <IconButton className="nav-button-wrapper navbar-smallformat">
+                    <ArrowBack className="nav-button" size='medium' onClick={() => navigate(-1)}>Back</ArrowBack>
+                  </IconButton>
+                </li>
+                <li>
+                  <IconButton className="nav-button-wrapper navbar-smallformat">
+                    <ArrowForward className="nav-button" size='medium' onClick={() => navigate(1)}>Forward</ArrowForward>
+                  </IconButton>
+                </li>
+              </ul>
           </div>
         </div>
     )

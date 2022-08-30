@@ -159,7 +159,7 @@ export const parseSelfText = (text = '') => {
             let replacerLink = match.slice(match.indexOf('(')+1, match.indexOf(')'))
             if(replacerLink){
                 replacerLink = replacerLink.replace(/&amp;/g, '&');
-                replaceAnchor = `<a href="${replacerLink}">${replacerText}</a>`;
+                replaceAnchor = `<a href="${replacerLink}">${replacerText}</a> `;
                 
                 return replaceAnchor;
             }
@@ -173,12 +173,9 @@ export const parseSelfText = (text = '') => {
             });
     }
 
-    
-    
-
     // Headings h1-h6
     finalText = finalText.replace(heading1Regex, (match) => {
-        let noMarkdown = match.slice(2); //removes MD
+        let noMarkdown = match.slice(1); //removes MD
         return `<h1>${noMarkdown}</h1>`;
     });
     finalText = finalText.replace(heading2Regex, (match) => {

@@ -1,14 +1,13 @@
 /* General Styles */
 .navbar-layout {
-    padding: 1rem;
-}
-.navbar-layout {
+    width: 100%;
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: space-between;
     background-color: orchid;
     color: white;
+    padding: 0px 1rem;
 }
 
 /* Logo / Header */
@@ -69,18 +68,49 @@
     align-self: center;
     justify-self: center;
 }
-.nav-button-tray .navbar-standardformat {
-    display: none;
-}
-
-.navbar-layout .nav-button, .navbar-layout label {
-    display: none;
-}
 
 .nav-button .MuiSvgIcon-fontSizeMedium, .nav-button.MuiSvgIcon-fontSizeMedium {
     font-size: 1.8rem;
 }
 
+/* Removing Desktop-only Buttons in favor of Hamburger Menu  */
+.navbar-layout .navbar-standardformat, .navbar-layout label  {
+    display: none;
+}
+/* Hamburger Menu */
+#navbar-expandable {
+    background-color: rgb(212, 150, 210);
+    width: 100%;
+    position: absolute;
+    top: 5rem;
+    left: 0px;
+    z-index: 6;
+    justify-content: space-around;
+}
+#navbar-expandable * {
+    border: 1px solid rgb(233, 80, 80);
+}
+
+.navbar-dropdown-menu {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.navbar-dropdown-menu li {
+    margin: 0px 10px;
+}
+.navbar-dropdown-menu li a {
+    text-decoration: none;
+    color: white;
+}
+
+.hamburger-closed {
+    display: none;
+}
+.hamburger-open {
+    display: flex;
+}
     
 @media screen and (max-width: 1000px) {
     .search-field {
@@ -100,15 +130,14 @@
     }
     .navbar-layout {
         padding: 0px 2rem;
-        /* border-bottom: 1px solid black;
-        border-left: 1px solid black;
-        border-right: 1px solid black; */
     }
+
+    /* Reset Nav Buttons for Desktop, hide Small Format buttons */
     .navbar-layout .nav-button, .navbar-layout label, 
     .nav-button-tray .navbar-standardformat {
         display: initial;
     }
-    .nav-button-tray .navbar-smallformat {
+    .nav-button-tray .navbar-smallformat, .hamburger-open {
         display: none;
         align-self: center;
     }

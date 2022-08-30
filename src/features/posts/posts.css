@@ -16,6 +16,10 @@
     grid-column: 1 / 1 / auto / span 8; */
 }
 
+.posts-subreddit-header {
+    margin: 0rem 0rem 2rem 4.5rem;
+}
+
 /* Handling for Posts Cards */
 .posts-post {
     width: 28%;
@@ -142,15 +146,15 @@
     font-size: 0.85rem;
 }
 
-.posts-page .posts-pageNav, .thread-page .posts-pageNav {
+/* .posts-page .posts-pageNav, .thread-page .posts-pageNav {
     margin: 1rem 1rem 2rem 1rem;
-}
-.posts-page .posts-pageNav:first-of-type {
+} */
+/* .posts-page .posts-pageNav:first-of-type {
     margin-left: 2rem;
 }
 .posts-page .posts-pageNav:last-of-type {
     margin-right: 0px;
-}
+} */
 .posts-page .posts-pageNav:hover, .thread-page .posts-pageNav:hover {
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
@@ -160,6 +164,11 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+.posts-nav-tray {
+    display: flex;
+    justify-content: space-between;
+    margin: 0rem 1rem;
 }
 
 /* Thread Page Exclusive Styles */
@@ -210,5 +219,9 @@
 
 /* Large Tablets in Landscape, Desktop */
 @media screen and (min-width: 1025px) {
-
+    .posts-nav-tray {
+        justify-content: flex-start;
+        gap: 1rem;
+        margin: 1rem 0rem 2rem 4rem;
+    }
 }

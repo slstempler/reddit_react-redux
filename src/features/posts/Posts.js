@@ -77,18 +77,21 @@ export const Posts = () => {
     return (
         <section className="posts-page">
             {arePostsLoading && <p>Loading...</p>}
+            <h1 className="posts-subreddit-header">r/{subredditSelection}</h1>
             <div className="posts-container">
                 {posts.map(post => {
                     //console.log(post);
                     return <Post postData={post.data} key={post.data.id}/>
                 })}
             </div>
-            {!arePostsLoading && (searchParams.has('after') || searchParams.has('before')) &&
-                <Button type="button" variant="outlined" onClick={handlePrevPage} className="posts-pageNav">&lt; Prev Page</Button> 
-            }
-            {!arePostsLoading &&
-                <Button type="button" variant="outlined" onClick={handleNextPage} className="posts-pageNav">&gt; Next Page</Button> 
-            }
+            <div className="posts-nav-tray">
+                {!arePostsLoading && (searchParams.has('after') || searchParams.has('before')) &&
+                    <Button type="button" variant="outlined" onClick={handlePrevPage} className="posts-pageNav">&lt; Prev Page</Button> 
+                }
+                {!arePostsLoading &&
+                    <Button type="button" variant="outlined" onClick={handleNextPage} className="posts-pageNav">Next Page &gt;</Button> 
+                }
+            </div>
         </section>
     );
 }
