@@ -26,6 +26,15 @@ export default function App() {
       <div className="wrapper">
         <div className="page-container">
           <NavBar />
+          <div id="modal-fade" className='modal-fade-inactive'
+          onClick={(e) => {
+            document.getElementById("navbar-expandable").classList.toggle('hamburger-closed');
+            document.getElementById('navbar-expandable').classList.toggle('hamburger-open');
+            document.getElementById('modal-fade').classList.toggle('modal-fade-active');
+            document.getElementById('modal-fade').classList.toggle('modal-fade-inactive');
+            document.getElementById('navbar-subreddits').classList.remove('navbar-subreddits-open');
+            document.getElementById('navbar-subreddits').classList.add('navbar-subreddits-closed');
+          }}></div>
           <SideBar />
           <Routes>
             <Route path="/" element={<p>Home :)</p>}/>

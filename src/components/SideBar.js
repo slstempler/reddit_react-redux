@@ -4,7 +4,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getSubreddits, selectSubreddits } from "../features/subreddits/subredditsSlice";
 import "./sidebar.css";
 
-export const SideBar = () => {
+export const SideBar = ({className = '', idName = ''}) => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectSubreddits);
     const location = useLocation;
@@ -16,7 +16,7 @@ export const SideBar = () => {
     useEffect(firstRender, [location])
 
     return (
-        <div className="sidebar-container">
+        <div className={"sidebar-container " + className} id={idName}>
             <p className="sidebar-header">popular subreddits</p>
             <ul className="sidebar-list">
             {subreddits.map(sub => {

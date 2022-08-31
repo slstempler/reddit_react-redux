@@ -4,7 +4,7 @@
     display: flex;
     align-content: center;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     background-color: orchid;
     color: white;
     padding: 0px 1rem;
@@ -15,6 +15,7 @@
     text-decoration: none;
     color: white;
     font-size: 1.5rem;
+    margin-left: 0.5rem;
 }
 .nav-header:hover {
     color: red;
@@ -29,6 +30,9 @@
     width: 10rem;
     margin: 0px 1rem;
     padding: 1rem;
+}
+.navbar-expandable .search-field {
+    color: black;
 }
 .search-field:invalid {
     background-color: lightcoral;
@@ -86,9 +90,44 @@
     left: 0px;
     z-index: 6;
     justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    animation-duration: 0.3s;
+    animation-name: slide-in-left;
+    animation-direction: alternate;
 }
-#navbar-expandable * {
+#modal-fade {
+    display: none;
+    background-color: black;
+    position: absolute;
+    top: 5rem;
+    width: 100%;
+    height: 1000%;
+    z-index: 5;
+    opacity: 0;
+}
+#modal-fade.modal-fade-active {
+    display: initial;
+    opacity: 0.8;
+    animation-duration: 0.3s;
+    animation-name: opacity-fade-in;
+}
+/* #modal-fade.modal-fade-inactive {
+    opacity: 0;
+    animation-duration: 0.3s;
+    animation-name: opacity-fade-in;
+    animation-direction: reverse;
+} */
+/* #navbar-expandable * {
     border: 1px solid rgb(233, 80, 80);
+} */
+
+/* hack to fix CSS for searchbar */
+#navbar-expandable.hamburger-open .navbar-smallformat {
+    display:inline;
+}
+#navbar-expandable.hamburger-open .navbar-subreddits-closed {
+    display: none;
 }
 
 .navbar-dropdown-menu {
@@ -96,6 +135,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
 }
 .navbar-dropdown-menu li {
     margin: 0px 10px;
@@ -112,6 +152,25 @@
     display: flex;
 }
     
+/* Keyframe Animations */
+@keyframes slide-in-left {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0px;
+    }
+}
+@keyframes opacity-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* Media Breakpoints */
 @media screen and (max-width: 1000px) {
     .search-field {
         max-width: 15rem;
@@ -134,7 +193,7 @@
 
     /* Reset Nav Buttons for Desktop, hide Small Format buttons */
     .navbar-layout .nav-button, .navbar-layout label, 
-    .nav-button-tray .navbar-standardformat {
+    .nav-button-tray .navbar-standardformat, .navbar-layout .navbar-standardformat {
         display: initial;
     }
     .nav-button-tray .navbar-smallformat, .hamburger-open {

@@ -71,13 +71,17 @@ export const Posts = () => {
     //resets scroll position after a new page is loaded
     //reset the dependency array once more URL params implemented?
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
+        document.getElementById("navbar-expandable").classList.add('hamburger-closed');
+        document.getElementById('navbar-expandable').classList.remove('hamburger-open');
+        document.getElementById('modal-fade').classList.remove('modal-fade-active');
+        document.getElementById('modal-fade').classList.add('modal-fade-inactive');
       }, [after])
 
     return (
         <section className="posts-page">
             {arePostsLoading && <p>Loading...</p>}
-            <h1 className="posts-subreddit-header">r/{subredditSelection}</h1>
+            <h1 className="posts-subreddit-header">r/{subredditSelection.toLowerCase()}</h1>
             <div className="posts-container">
                 {posts.map(post => {
                     //console.log(post);
