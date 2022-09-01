@@ -191,7 +191,7 @@ export const Thread = () => {
                     }
                 </section>
                 <section className="thread-comments">
-                    <h3>{threadData.num_comments} Comments</h3>
+                    <h3>{threadContent.num_comments} Comments</h3>
                     {threadData.map(comment=> {
                         return <Comment commentData={comment} threadLayer={0}/>
                     })}

@@ -122,6 +122,16 @@
     border: 1px solid rgb(233, 80, 80);
 } */
 
+.navbar-sidebar {
+    width: 70%;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+.navbar-sidebar-header {
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
 /* hack to fix CSS for searchbar */
 #navbar-expandable.hamburger-open .navbar-smallformat {
     display:inline;
@@ -184,6 +194,12 @@
 
 /* Large Tablets in Landscape, Desktop */
 @media screen and (min-width: 1025px) {
+    .navbar-layout {
+        justify-content: space-between;
+    }
+    .nav-header {
+        margin-left: 0px;
+    }
     .search-field {
         width: 30rem;
     }
@@ -196,7 +212,7 @@
     .nav-button-tray .navbar-standardformat, .navbar-layout .navbar-standardformat {
         display: initial;
     }
-    .nav-button-tray .navbar-smallformat, .hamburger-open {
+    .navbar-layout > .navbar-smallformat, .hamburger-open {
         display: none;
         align-self: center;
     }

@@ -9,6 +9,7 @@
     text-overflow: ellipsis;
 }
 
+
 .comment-user {
     display: inline-block;
     max-width: 70%;
@@ -37,6 +38,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-height: 2rem;
 }
 
 .collapse-replies.comment-container {
@@ -77,7 +79,7 @@
 }
 .thread-content h2 {
     align-self: flex-start;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */ 
 }
 .thread-content > img {
     max-height: 90vh;
@@ -87,10 +89,18 @@
 .thread-content hr {
     margin-top: 0.5rem;
 }
+.thread-content br {
+    height: 1rem;
+}
 
 .thread-content h3 {
     margin: 1rem 0rem;
 }
+
+.thread-content ul li {
+    margin-left: 1rem;
+}
+
 .thread-page blockquote {
     margin: 0.5rem;
     padding-left: 0.5rem;

@@ -95,7 +95,7 @@
 
 .posts-post-thumbnail, .posts-vid-thumbnail, .posts-link-thumbnail {
     max-width: 85%;
-    max-height: 75%;
+    max-height: 100%;
     align-self: center;
 }
 .posts-post-thread{
@@ -225,6 +225,6 @@
         margin: 1rem 0rem 2rem 4rem;
     }
     .posts-subreddit-header {
-        margin-right: 4.5rem;
+        margin-left: 3rem;
     }
 }

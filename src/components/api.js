@@ -5,11 +5,11 @@ export const fetchPosts = (subreddit, after = '', before = '') => {
         return response;
     }
     else if(after){
-        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&after=${after}`);
+        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&limit=30&after=${after}`);
         return response;
     }
     else if(before){
-        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&before=${before}`);
+        const response = fetch(`https://www.reddit.com/r/${subreddit}.json?count=30&limit=30&before=${before}`);
         return response;
     }
     

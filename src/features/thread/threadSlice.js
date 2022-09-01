@@ -97,21 +97,21 @@ export const parseSelfText = (text = '') => {
     const heading4Regex = /^####.*/gmi;
     const heading5Regex = /^#####.*/gmi;
     const heading6Regex = /^######.*/gmi;
-    const italicRegex = /\*[^\*]+\*|\_[^\_]+\_/gm;
-    const boldRegex = /\*\*[^\*]+\*\*|\_\_[^\_]+\_\_/gmi;
-    const boldItalRegex = /\*\*\*[^\*]\*\*\*|\_\_\_[^\_]+\_\_\_/gmi;
+    const italicRegex = /\B\*[^\n\*]+\*|\B\_[^\n\_]+\_/gm;
+    const boldRegex = /\B\*\*[^\n\*]+\*\*|\B\_\_[^\n\_]+\_\_/gmi;
+    const boldItalRegex = /\B\*\*\*[^\n\*]+\*\*\*|\B\_\_\_[^\n\_]+\_\_\_/gmi;
     const strikethroughRegex = /\~\~[^\~]+\~\~/gmi;
-    const bulletRegex = /^[\-\+\*]{1}\s.*?\n[\n|[[:blank:]]/sgmi;
+    const bulletRegex = /^[\-\+\*]{1}\s.*?\n/sgmi;
     const subBulletRegex = /^[\-\+\*]{1}\s.*$/gmi;
     //not picking up ">" in regex - due to HTML parser?
     const blockquoteRegex = /(^&gt;.+?)(\r?\n?\n\w?\n?[\n\s])/mgsi;
-    const horizLineRegex = /^[-*]+?\s/gmi;
+    const horizLineRegex = /^[\-\_\*]{3,}\s/gmi;
     const newlineRegex = /\n/gmi;
     const mdURLRegex = /\[(.*?)\)[\s\W]/gmi;
 
     // Blockquotes: > in front of paragraph
     finalText = finalText.replace(blockquoteRegex, (match, p1, p2) => {
-       console.log(`found blockquote: ${p1} | ${p2} | match: ${match}`);
+       //console.log(`found blockquote: ${p1} | ${p2} | match: ${match}`);
         let noMarkdown = p1.slice(4);
         let noSpacing = p2.slice(2);
         return `<blockquote>${noMarkdown}</blockquote> ${noSpacing}`;
@@ -121,7 +121,9 @@ export const parseSelfText = (text = '') => {
     finalText = finalText.replace(bulletRegex, (match) => {
         console.log(`located bulleted list!`);
         let final = match.replace(subBulletRegex, subMatch => {
-            return `<li>${subMatch}</li>`;
+            console.log(`inserting list item...`);
+            let truncated = subMatch.slice(2);
+            return `<li>${truncated}</li>`;
         });
         return `<ul>${final}</ul>`
     });
@@ -176,7 +178,7 @@ export const parseSelfText = (text = '') => {
     // Headings h1-h6
     finalText = finalText.replace(heading1Regex, (match) => {
         let noMarkdown = match.slice(1); //removes MD
-        return `<h1>${noMarkdown}</h1>`;
+        return `<h2>${noMarkdown}</h2>`;
     });
     finalText = finalText.replace(heading2Regex, (match) => {
         let noMarkdown = match.slice(2);
@@ -199,6 +201,7 @@ export const parseSelfText = (text = '') => {
         return `<h6>${noMarkdown}</h6>`;
     });
 
+    // horizontal line -> <hr>
     finalText = finalText.replace(horizLineRegex, (match) => {
         console.log(`found match ${match}!`);
         return "<br><hr><br>";

@@ -48,12 +48,14 @@ export const NavBar = () => {
                   </IconButton>
                 </li>
               </ul>
-              <div>
+              <div className="navbar-sidebar">
                 <a tabIndex={0}
+                className="navbar-sidebar-header"
                 onClick={(e) => {
                   document.getElementById('navbar-subreddits').classList.toggle('navbar-subreddits-open');
                   document.getElementById('navbar-subreddits').classList.toggle('navbar-subreddits-closed');
-                }}>Popular Subreddits V</a>
+                }}>Popular Subreddits <span class="material-symbols-outlined">
+                expand_more</span></a>
                 <SideBar className="navbar-smallformat navbar-subreddits-closed" idName="navbar-subreddits"/>
               </div>
           </div>
