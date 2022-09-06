@@ -66,7 +66,6 @@ export const Thread = () => {
     //Effect function to dispatch action creator
     const renderThread = () => {
         dispatch(getThread({subreddit: subreddit, threadId: threadId}));
-        //extractImages();
     }
 
     //obtains image path from reddit gallery
@@ -143,6 +142,13 @@ export const Thread = () => {
         alert("copied to clipboard!");
     }
 
+    // Toggles CSS on main content to reveal NSFW/Spoilers
+    const revealContent = (e) => {
+        e.preventDefault();
+        document.getElementById('thread-content').classList.remove('content-hide');
+        document.getElementById('thread-screen-container').style.display = 'none';
+    }
+
     //returns post content + Comments components(?)
     if(threadData !== [] && !threadError && !threadLoading) { 
         return (
@@ -155,10 +161,18 @@ export const Thread = () => {
                     <Button type="button" variant="outlined" onClick={clipboardThread} 
                             className="posts-pageNav thread-nav-button">Copy Thread Link</Button>
                 </div>
-                <section className="thread-content">
+                {(threadContent.spoiler || threadContent.over_18) &&
+                    <section className="thread-screen-container" id='thread-screen-container'>
+                        <Button type="button" variant="outlined" 
+                        onClick={revealContent}
+                        className="posts-pageNav thread-nav-button ">
+                            Click to Reveal {threadContent.over_18 && "NSFW"}{threadContent.spoiler && "Spoiler"} Content</Button>
+                    </section>
+                }
+                <section id="thread-content" className={"thread-content " + ((threadContent.spoiler || threadContent.over_18) && "content-hide")}>
                     {/* displays thread title at top of page */}
                     {threadContent &&
-                        <h2>{threadContent.title}</h2>
+                        <h2 className="thread-title">{threadContent.title}</h2>
                     }
                     {/* previews thumbnail when that is best option */}
                     {(threadContentType == 'image' || threadContentType == 'gif') && 

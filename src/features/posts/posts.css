@@ -62,7 +62,9 @@
     background-color: rgba(0,0,0,0.5);
     transition: background-color ease-in-out 0.2s;
 }
-.posts-post:nth-child(even) .MuiButton-text:hover {
+.posts-post:nth-child(even) .MuiButton-text:hover, 
+.posts-post:nth-child(even) .posts-post-spoiler:hover
+.posts-post:nth-child(even) .posts-post-nsfw:hover  {
     text-shadow: 0 0 5px #fff;
     transition: text-shadow ease-in 0.2s;
 }
@@ -81,7 +83,8 @@
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
 }
-.posts-post:nth-child(odd) .MuiButton-text:hover {
+.posts-post:nth-child(odd) .MuiButton-text:hover,
+.posts-post:nth-child(odd) .posts-post-spoiler:hover {
     text-shadow: 0 0 5px #6bb5ff;
     background-color: initial;
     transition: text-shadow ease-in 0.2s;
@@ -123,8 +126,13 @@
 
 .posts-post-nsfw, .posts-post-spoiler {
     align-self: center;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    font-family: maxular-rx, serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.4rem;
 }
+
 
 .posts-post-score {
     align-self: flex-start;

@@ -13,6 +13,7 @@ import { SideBar } from '../components/SideBar';
 import { Thread } from '../features/thread/Thread';
 import { NavBar } from '../components/NavBar';
 import KeyboardDoubleArrowUp from '@mui/icons-material/KeyboardDoubleArrowUp'
+import { HomePage } from '../components/HomePage';
 
 export default function App() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function App() {
           }}></div>
           <SideBar />
           <Routes>
-            <Route path="/" element={<p>Home :)</p>}/>
+            <Route path="/" element={<HomePage/>}/>
             <Route path="/r/:subreddit" element={<Posts />} />
             <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
           </Routes>

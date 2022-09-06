@@ -22,6 +22,7 @@ export const SideBar = ({className = '', idName = ''}) => {
             <ul className="sidebar-list">
             {subreddits.map(sub => {
                 const path = '/r/' + sub.data.display_name;
+                if(sub.data.display_name === 'Home') return null;
                 return (
                     <li className="sidebar-item" key={sub.data.id}
                         onClick={e => {

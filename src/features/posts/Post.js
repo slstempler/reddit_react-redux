@@ -126,10 +126,10 @@ export const Post = ({postData}) => {
             /* {((!thumbUrl || thumbUrl === 'nsfw' || thumbUrl === 'spoiler')) && */
                 <>
                     {thumbUrl === 'nsfw' &&  
-                        <h5 className="posts-post-nsfw">Hmmm... Link is NSFW</h5>
+                        <h5 className="posts-post-nsfw">[NSFW]</h5>
                     }
                     {thumbUrl === 'spoiler' && 
-                        <h5 className="posts-post-spoiler">Shh... Link is a Spoiler!</h5>
+                        <h5 className="posts-post-spoiler">[SPOILER]</h5>
                     }
                     <a href={postUrl} className="posts-post-nothumb posts-post-link">{postData.title}</a>               
                 </>

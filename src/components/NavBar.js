@@ -24,7 +24,7 @@ export const NavBar = () => {
             >
               <Menu className="navbar-smallformat" size="medium"/>
           </IconButton>
-          <NavLink to="/r/popular" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
+          <NavLink to="/" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
           <SearchBar className="searchbar navbar-standardformat"/>
           <div className="nav-button-tray navbar-standardformat">
             <IconButton className="nav-button-wrapper navbar-standardformat">

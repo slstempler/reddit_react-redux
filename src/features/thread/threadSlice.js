@@ -70,7 +70,7 @@ const replySearcher = (array, commentId) => {
         if(typeof current(comment) === 'object'){
             //swap if a match!
             if(comment.id === commentId){
-                console.log(`located!`);
+                //console.log(`located!`);
                 comment.showReplies = comment.showReplies ? false : true;
             }
             else {
@@ -79,7 +79,7 @@ const replySearcher = (array, commentId) => {
         }
         //if an array, this contains replies - keep digging lower
         else if(typeof comment === 'array'){
-            console.log(`array found!`);
+           //console.log(`array found!`);
             replySearcher(comment, commentId);
         }
     }
@@ -119,9 +119,9 @@ export const parseSelfText = (text = '') => {
 
     // Bullets: * or - (maybe want <ul>?)
     finalText = finalText.replace(bulletRegex, (match) => {
-        console.log(`located bulleted list!`);
+        //console.log(`located bulleted list!`);
         let final = match.replace(subBulletRegex, subMatch => {
-            console.log(`inserting list item...`);
+            //console.log(`inserting list item...`);
             let truncated = subMatch.slice(2);
             return `<li>${truncated}</li>`;
         });
@@ -203,7 +203,7 @@ export const parseSelfText = (text = '') => {
 
     // horizontal line -> <hr>
     finalText = finalText.replace(horizLineRegex, (match) => {
-        console.log(`found match ${match}!`);
+        //console.log(`found match ${match}!`);
         return "<br><hr><br>";
     });
 

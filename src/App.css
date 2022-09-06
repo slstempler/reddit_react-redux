@@ -88,7 +88,7 @@ html {
   grid-area: sidebar;
   display: none;
 }
-.posts-page, .thread-page {
+.posts-page, .thread-page, .homepage-container {
   /* grid-area: 2 / 1 / auto / span 9; */
   grid-area: page;
 }
@@ -139,7 +139,7 @@ html {
       grid-template: 5rem 1fr / repeat(12, 1fr);
       grid-template-areas: 
         "nav nav nav nav nav nav nav nav nav nav nav nav"
-        "page page page page page page page page page sidebar sidebar gutterw";
+        "page page page page page page page page page sidebar sidebar gutter";
     }
 
     .thread-page {
