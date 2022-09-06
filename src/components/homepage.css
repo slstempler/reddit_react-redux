@@ -6,10 +6,22 @@
 
 .homepage-searchbar {
     margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 .homepage-searchbar input {
     border: 2px solid black;
     margin-left: 1rem;
+    min-width: 12rem;
+    max-width: 20rem;
+    flex-basis: 0%;
+}
+.homepage-searchbar label {
+    display: none;
+}
+.homepage-searchbar .nav-button * {
+    color: black;
 }
 
 .homepage-subreddit-cards {
@@ -24,7 +36,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 80%;
     max-height: 15rem;
     margin: 0px 2rem;
     padding: 1rem;
@@ -40,15 +52,39 @@
 }
 
 .homepage-card p {
-    display: inline-block;
+    display: -webkit-box;
     line-height: 1.2rem;
-    max-height: calc(line-height * 3);
-    max-width: 100%;
+    /* max-height: calc(line-height * 3);
+    max-width: 100%; */
     overflow: hidden;
-    /* white-space: pre-line; */
-    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .homepage-ignore, .homepage-card hr {
     display: none;
+}
+
+/* Media Breakpoints */
+@media screen and (min-width: 480px) {
+    .homepage-subreddit-cards {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .homepage-card {
+        width: 45%;
+        margin: 0px 1rem;
+    }
+    .homepage-container .homepage-searchbar input {
+        min-width: 25rem;
+        max-width: 30rem;
+    }
+    .homepage-searchbar label {
+        display: initial;
+    }
+}
+@media screen and (min-width: 1025px) {
+    .homepage-card {
+        width: 40%;
+    }
 }

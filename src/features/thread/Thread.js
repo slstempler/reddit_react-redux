@@ -198,10 +198,25 @@ export const Thread = () => {
                                 scrolling="yes"
                                 className="thread-direct-embed"></iframe>
                     </>}
-                    {threadContent.is_self &&
+                    {/* selftext w/o image embed */}
+                    {threadContent.is_self && !threadContent.media_metadata && !threadContent.preview && 
                             // code for attempt at pulling New Video Player links
                             // <iframe src={"https://reddit.com/link/" + threadContent.id + "/video/" + Object.keys(threadContent.media_metadata)[0] + "/player"}></iframe>
                             <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
+                    }
+                    {/* covers selftext w/image embed */}
+                    {threadContent.is_self && threadContent.media_metadata &&
+                        <>
+                            <img src={threadContent.media_metadata[Object.keys(threadContent.media_metadata)[0]].s.u.replace(/&amp;/g, '&')}></img>
+                            <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
+                        </>
+                    }
+                    {/* selftext w/image preview */}
+                    {threadContent.is_self && !threadContent.media_metadata && threadContent.preview &&
+                        <>
+                            <img src={threadContent.preview.images[0].source.url.replace(/&amp;/g, '&')}></img>
+                            <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
+                        </>
                     }
                 </section>
                 <section className="thread-comments">

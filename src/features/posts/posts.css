@@ -3,6 +3,7 @@
     /* grid-template-columns: subgrid;
     grid-column:  2 / span 8; */
     margin: 0px auto;
+    padding: 0px 1rem;
 }
 
 .posts-container {
@@ -14,6 +15,7 @@
     justify-content: center;
     /* grid-template-columns: subgrid;
     grid-column: 1 / 1 / auto / span 8; */
+    margin: 1rem;
 }
 
 .posts-subreddit-header {
@@ -22,7 +24,7 @@
 
 /* Handling for Posts Cards */
 .posts-post {
-    width: 28%;
+    width: 100%;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
@@ -98,8 +100,10 @@
 
 .posts-post-thumbnail, .posts-vid-thumbnail, .posts-link-thumbnail {
     max-width: 85%;
-    max-height: 100%;
+    max-height: calc(35rem * 0.7);
     align-self: center;
+    overflow: hidden;
+    object-fit: cover;
 }
 .posts-post-thread{
     margin-left: 5%;
@@ -207,26 +211,24 @@
 
 /* Screen Breakpoints */
 
-@media screen and (max-width: 480px) {
-    .posts-container {
-        margin: 1rem;
-    }
-    .posts-post {
-        width: 100%;
-   }
-   .posts-page {
-        padding: 0px 1rem;
-   }
-
-}
-
 /* Tablets, Large Phones in Landscape*/
 @media screen and (min-width: 480px) {
-
+    .posts-post {
+        width: 45%;
+    }
 }
 
 /* Large Tablets in Landscape, Desktop */
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1400px) {
+    .posts-page {
+        padding: initial;
+    }
+    .posts-container {
+        margin: initial;
+    }
+    .posts-post {
+        width: 28%;
+    }
     .posts-nav-tray {
         justify-content: flex-start;
         gap: 1rem;
