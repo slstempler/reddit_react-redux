@@ -4,6 +4,10 @@
     gap: 1rem;
 }
 
+.homepage-container h1 {
+    margin-left: 1.5rem;
+}
+
 .homepage-searchbar {
     margin: 0px auto;
     display: flex;
@@ -66,7 +70,8 @@
 }
 
 /* Media Breakpoints */
-@media screen and (min-width: 480px) {
+
+@media screen and (min-width: 660px) {
     .homepage-subreddit-cards {
         flex-direction: row;
         justify-content: space-evenly;
@@ -87,4 +92,9 @@
     .homepage-card {
         width: 40%;
     }
+
+    .homepage-container h1 {
+        margin-left: 2rem;
+    }
+    
 }

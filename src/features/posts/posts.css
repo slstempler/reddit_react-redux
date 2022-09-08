@@ -161,12 +161,7 @@
 /* .posts-page .posts-pageNav, .thread-page .posts-pageNav {
     margin: 1rem 1rem 2rem 1rem;
 } */
-/* .posts-page .posts-pageNav:first-of-type {
-    margin-left: 2rem;
-}
-.posts-page .posts-pageNav:last-of-type {
-    margin-right: 0px;
-} */
+
 .posts-page .posts-pageNav:hover, .thread-page .posts-pageNav:hover {
     background-color: rgba(25, 118, 210, 0.2);
     transition: background-color ease-in-out 0.2s, border ease-in 0.1s;
@@ -216,6 +211,12 @@
     .posts-post {
         width: 45%;
     }
+    .posts-page .posts-pageNav:first-of-type {
+        margin-left: 1.75rem;
+    }
+    .posts-page .posts-pageNav:last-of-type {
+        margin-right: 1.75rem;
+    }
 }
 
 /* Large Tablets in Landscape, Desktop */
@@ -236,5 +237,8 @@
     }
     .posts-subreddit-header {
         margin-left: 3rem;
+    }
+    .posts-page .posts-pageNav:first-of-type, .posts-page .posts-pageNav:last-of-type {
+        margin: initial;
     }
 }

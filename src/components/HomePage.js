@@ -14,7 +14,7 @@ export const HomePage = () => {
 
     return (
         <section className="homepage-container">
-            <h1>Reddit but i made this</h1>
+            <h1>today's popular subreddits</h1>
             <SearchBar className="homepage-searchbar"/>
             <section className="homepage-subreddit-cards">
                {subreddits && subreddits.map(sub => {
