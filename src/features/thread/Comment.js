@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './thread.css';
 import parse from 'html-react-parser';
-import { parseSelfText, toggleCommentCollapse, selectReplyChains, selectContent } from "./threadSlice";
+import { parseSelfText, toggleCommentCollapse, selectContent } from "./threadSlice";
 import { IconButton } from "@mui/material";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
@@ -11,7 +11,7 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
     const dispatch = useDispatch();
 
     //state selector for collapsable threads
-    const replyChains = useSelector(selectReplyChains);
+    // const replyChains = useSelector(selectReplyChains);
     const threadContent = useSelector(selectContent);
 
     //simple variables for semantic clarity in handling content
@@ -67,7 +67,7 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
     return (
         <div key={commentID}
             id={commentID} 
-            className={"comment-container " + "layer-" + threadLayer.toString() 
+            className={"comment-container layer-" + threadLayer.toString() 
                     + (threadLayer >= 1 ? " is-reply" : " top-level")
                     + (hasBody ? " no-hide" : " load-more")}>
 
@@ -78,8 +78,8 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
             {hasBody &&
             <>
                 <a href={"https://www.reddit.com/u/" + commentData.data.author}
-                className={"comment-user" + " " + (userIsOP ? "comment-OP" : "not-OP")}
-                target="_blank">{commentData.data.author}</a>
+                className={"comment-user " + (userIsOP ? "comment-OP" : "not-OP")}
+                target="_blank" rel="noreferrer">{commentData.data.author}</a>
                 {userIsOP && <span><strong><em> - OP</em></strong></span>}
                 <span className="comment-body">{parse(parseSelfText(commentData.data.body))}</span>
                 <br></br>

@@ -4,7 +4,7 @@ import { selectAfter,
     selectPosts, 
     getPosts,
     selectBefore } from "./postsSlice";
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Post } from "./Post";
 import { useEffect } from "react";
 import { Button } from "@mui/material";
@@ -17,7 +17,7 @@ export const Posts = () => {
     const params = useParams();
     const subredditSelection = params.subreddit;
     const location = useLocation();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
 
     //URL Query Management
@@ -32,10 +32,10 @@ export const Posts = () => {
     // 3. if we have neither, go to default
 
 
-    const handleLoadPosts = (e) => {
-        e.preventDefault();
-        dispatch(getPosts(subredditSelection, after));
-    }
+    // const handleLoadPosts = (e) => {
+    //     e.preventDefault();
+    //     dispatch(getPosts(subredditSelection, after));
+    // }
 
     const handleNextPage = (e) => {
         e.preventDefault();
@@ -67,6 +67,8 @@ export const Posts = () => {
         dispatch(getPosts({subreddit: subredditSelection, after: searchAfter, before: searchBefore}));
     }
 
+    // React-Redux flow interfering with linter prefs per https://github.com/facebook/create-react-app/issues/6880 - requires rework of logic
+    // eslint-disable-next-line
     useEffect(firstRender, [location]);
     //resets scroll position after a new page is loaded
     //reset the dependency array once more URL params implemented?

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { SearchBar } from "./searchbar/SearchBar";
 import "./homepage.css";
@@ -19,16 +19,18 @@ export const HomePage = () => {
             <section className="homepage-subreddit-cards">
                {subreddits && subreddits.map(sub => {
                     const path = '/r/' + sub.data.display_name;
-                    if(sub.data.display_name === 'Home') return <div className="homepage-ignore"></div>
+                    if(sub.data.display_name === 'Home') return <div className="homepage-ignore" key={sub.data.display_name}></div>
                     return (
                         <div className="homepage-card"
+                            key={sub.data.display_name}
                             onClick={e => {
                                 e.preventDefault();
                                 navigate(path);
                             }}>
                             <h3>{sub.data.display_name}</h3>
-                            <p>{parse(parseSelfText(sub.data.public_description))}</p>
-                            <img src={sub.data.icon_img}></img>
+                            <div className="sub-description">{parse(parseSelfText(sub.data.public_description))}</div>
+                            {(sub.data.icon_img || sub.data.community_icon) && 
+                            <img alt={"subreddit icon for " + sub.data.display_name} src={sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon.replace(/&amp;/g, "&")}></img>}
                         </div>
                     );
                 })}

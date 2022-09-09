@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {setTerm, selectSearch} from "./searchBarSlice";
 import SearchIcon from '@mui/icons-material/Search';

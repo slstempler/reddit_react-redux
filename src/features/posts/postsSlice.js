@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchPosts, fetchThread } from "../../components/api";
+import { fetchPosts } from "../../components/api";
 
 //action creator fetches posts from designated subreddit
 export const getPosts = createAsyncThunk(

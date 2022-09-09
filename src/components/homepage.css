@@ -55,7 +55,7 @@
     margin-top: 1rem;
 }
 
-.homepage-card p {
+.homepage-card .sub-description {
     display: -webkit-box;
     line-height: 1.2rem;
     /* max-height: calc(line-height * 3);

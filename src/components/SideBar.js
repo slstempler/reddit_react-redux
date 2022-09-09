@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Link, useNavigate, Navigate } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getSubreddits, selectSubreddits } from "../features/subreddits/subredditsSlice";
 import "./sidebar.css";
 
@@ -14,7 +14,9 @@ export const SideBar = ({className = '', idName = ''}) => {
         dispatch(getSubreddits());
     }
 
-    useEffect(firstRender, [location])
+    // React-Redux flow interfering with linter prefs per https://github.com/facebook/create-react-app/issues/6880 - requires rework of logic
+    // eslint-disable-next-line
+    useEffect(firstRender, [location]);
 
     return (
         <div className={"sidebar-container " + className} id={idName}>

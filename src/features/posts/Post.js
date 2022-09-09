@@ -1,9 +1,7 @@
-import { unwrapResult } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./posts.css"
 import PlayCircle from '@mui/icons-material/PlayCircle'
-import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
 
 export const Post = ({postData}) => {
@@ -89,7 +87,7 @@ export const Post = ({postData}) => {
                 <>
                     <div className="vid-thumb-container">
                         <PlayCircle className="vid-thumb-icon" fontSize="36"/>
-                        <img src={findPreviewThumbnail()} className="posts-vid-thumbnail"></img>
+                        <img src={findPreviewThumbnail()} alt="thumbnail preview for video post" className="posts-vid-thumbnail"></img>
                     </div>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
                 </>
@@ -100,7 +98,7 @@ export const Post = ({postData}) => {
             // (thumbUrl && thumbUrl !== 'nsfw' && thumbUrl !== 'spoiler') && 
             // !postData.is_video &&
                 <>
-                    <img src={findfirstGalleryImageUrl(postData.media_metadata)} className="posts-post-thumbnail"></img>
+                    <img src={findfirstGalleryImageUrl(postData.media_metadata)} alt="gallery or mixed text-media post" className="posts-post-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
                 </>
             }
@@ -108,7 +106,7 @@ export const Post = ({postData}) => {
             {postTypeFlag === 'directMedia' && !postHideFlag &&
             // thumbUrl && thumbUrl !== 'spoiler' && thumbUrl !== 'nsfw' && !postData.is_gallery && !postData.is_video && postData.domain === 'i.redd.it' &&
                 <>
-                    <img src={postData.url} className="posts-post-thumbnail"></img>
+                    <img src={postData.url} alt="post preview - direct submission" className="posts-post-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
                 </>
             }
@@ -117,7 +115,7 @@ export const Post = ({postData}) => {
             /* {postData.domain !== 'i.redd.it' && postData.preview && !postData.is_video &&
             (thumbUrl && thumbUrl !== 'nsfw' && thumbUrl !== 'spoiler') &&  */
                 <>
-                    <img src={findPreviewThumbnail()} className="posts-link-thumbnail"></img>
+                    <img src={findPreviewThumbnail()} alt="post preview - text submission" className="posts-link-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
                 </>
             }

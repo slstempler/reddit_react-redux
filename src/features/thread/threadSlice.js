@@ -30,9 +30,9 @@ const extractImages = (action) => {
 }
 
 //runs through action payload JSON to indicate relevant flags for rendering
-const parseThreadData = (action) => {
+// const parseThreadData = (action) => {
 
-}
+// }
 
 const extractReplies = (parent, layer, ancestor = '') => {
     // if there are replies, return [parent, expandReplies(parent)]
@@ -78,7 +78,7 @@ const replySearcher = (array, commentId) => {
             }
         }
         //if an array, this contains replies - keep digging lower
-        else if(typeof comment === 'array'){
+        else if(Array.isArray(comment)){
            //console.log(`array found!`);
             replySearcher(comment, commentId);
         }
@@ -97,15 +97,15 @@ export const parseSelfText = (text = '') => {
     const heading4Regex = /^####.*/gmi;
     const heading5Regex = /^#####.*/gmi;
     const heading6Regex = /^######.*/gmi;
-    const italicRegex = /\B\*[^\n\*]+\*|\B\_[^\n\_]+\_/gm;
-    const boldRegex = /\B\*\*[^\n\*]+\*\*|\B\_\_[^\n\_]+\_\_/gmi;
-    const boldItalRegex = /\B\*\*\*[^\n\*]+\*\*\*|\B\_\_\_[^\n\_]+\_\_\_/gmi;
-    const strikethroughRegex = /\~\~[^\~]+\~\~/gmi;
-    const bulletRegex = /^[\-\+\*]{1}\s.*?\n/sgmi;
-    const subBulletRegex = /^[\-\+\*]{1}\s.*$/gmi;
+    const italicRegex = /\B\*[^\n*]+\*|\B_[^\n_]+_/gm;
+    const boldRegex = /\B\*\*[^\n*]+\*\*|\B__[^\n_]+__/gmi;
+    const boldItalRegex = /\B\*\*\*[^\n*]+\*\*\*|\B___[^\n_]+___/gmi;
+    const strikethroughRegex = /~~[^~]+~~/gmi;
+    const bulletRegex = /^[-+*]{1}\s.*?\n/sgmi;
+    const subBulletRegex = /^[-+*]{1}\s.*$/gmi;
     //not picking up ">" in regex - due to HTML parser?
     const blockquoteRegex = /(^&gt;.+?)(\r?\n?\n\w?\n?[\n\s])/mgsi;
-    const horizLineRegex = /^[\-\_\*]{3,}\s/gmi;
+    const horizLineRegex = /^[-_*]{3,}\s/gmi;
     const newlineRegex = /\n/gmi;
     const mdURLRegex = /\[(.*?)\)[\s\W]/gmi;
 
@@ -284,8 +284,8 @@ export const threadSlice = createSlice({
                 else if(state.content.url.includes('.gif')){
                     state.contentType = 'gif';
                 }
-                else if(state.content.post_hint == 'image' ||
-                        state.content.domain == 'i.redd.it' ||
+                else if(state.content.post_hint === 'image' ||
+                        state.content.domain === 'i.redd.it' ||
                         state.content.url.includes('.png') || state.content.url.includes('.jpg')){
                     state.contentType = 'image'
                 }

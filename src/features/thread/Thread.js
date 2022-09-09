@@ -2,16 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, 
         useNavigate, 
-        useParams, 
-        Link, 
-        useSearchParams } from "react-router-dom";
-import { selectAfter, selectBefore } from "../posts/postsSlice";
+        useParams } from "react-router-dom";
 import { getThread, 
     selectThreadError, 
     selectThreadLoading, 
     selectThread, 
     selectContent,
-    updateThreadImage, 
     selectThreadImagePath,
     selectThreadContentType,
     parseSelfText} from "./threadSlice";
@@ -34,9 +30,9 @@ export const Thread = () => {
     const threadLoading = useSelector(selectThreadLoading);
     const threadContent = useSelector(selectContent);
     const threadContentType = useSelector(selectThreadContentType);
-    const subredditPath = '/r/' + subreddit;
-    const before = useSelector(selectBefore);
-    const after = useSelector(selectAfter);
+    // const subredditPath = '/r/' + subreddit;
+    // const before = useSelector(selectBefore);
+    // const after = useSelector(selectAfter);
 
     /* URL QUERIES STUFF TO FIX
     //if there is an "after" value, use that to populate the return page
@@ -46,8 +42,8 @@ export const Thread = () => {
 
     //used to populate img component attributes
     const threadImagePath = useSelector(selectThreadImagePath);
-    let imagePath = ''
-    let imageDoRender = false;
+    // let imagePath = ''
+    // let imageDoRender = false;
     const previewImagePath = threadContent.preview && threadContent.preview.images[0].source.url.replace(/&amp;/g, '&'); //sets thread preview image to source img, only if one is available
     
     // Other Elements
@@ -55,7 +51,7 @@ export const Thread = () => {
 
     // Video Handling
     let videoEmbedPath = `https://www.redditmedia.com/r/${subreddit}/comments/${threadId}/?embed=true&theme=dark`;
-    let videoEmbedWidth, videoEmbedHeight; 
+    // let videoEmbedWidth, videoEmbedHeight; 
     // if(threadContent.is_video){
     //     videoEmbedHeight = Math.floor(threadContent.media.reddit_video.height / 2.3);
     //     console.log(videoEmbedHeight);
@@ -69,25 +65,27 @@ export const Thread = () => {
     }
 
     //obtains image path from reddit gallery
-    const extractImages = () => {
-        console.log(`imagePath = ${imagePath}`)
-        if(threadImagePath && !threadError && !threadLoading){
-            const galleryData = threadContent.media_metadata;
-            let pathHolding = '';
-            for(let key in galleryData){
-                for(let size in galleryData[key].p){
-                    console.log(galleryData[key].p[size].u)
-                    pathHolding = galleryData[key].p[size].u;
-                }
-            }
-            imagePath = pathHolding.replace(/&amp;/g, '&');
-            console.log(imagePath)
-            dispatch(updateThreadImage(imagePath));
-        }
-        else {console.log(`awaiting thread data...`)};
-    }
+    // const extractImages = () => {
+    //     console.log(`imagePath = ${imagePath}`)
+    //     if(threadImagePath && !threadError && !threadLoading){
+    //         const galleryData = threadContent.media_metadata;
+    //         let pathHolding = '';
+    //         for(let key in galleryData){
+    //             for(let size in galleryData[key].p){
+    //                 console.log(galleryData[key].p[size].u)
+    //                 pathHolding = galleryData[key].p[size].u;
+    //             }
+    //         }
+    //         imagePath = pathHolding.replace(/&amp;/g, '&');
+    //         console.log(imagePath)
+    //         dispatch(updateThreadImage(imagePath));
+    //     }
+    //     else {console.log(`awaiting thread data...`)};
+    // }
 
     //useEffect pulls thread data on first render, fires on location change
+    // React-Redux flow interfering with linter prefs per https://github.com/facebook/create-react-app/issues/6880 - requires rework of logic
+    // eslint-disable-next-line
     useEffect(renderThread, [location]);
     //useEffect(extractImages, [location, imagePath]);
     //resets scroll position in thread
@@ -98,42 +96,42 @@ export const Thread = () => {
     
 
     //recursive function pulls relevant data out of top-level comments
-    const expandReplies = (parent, layer, inheritId = 'none') => {
-        // if there are replies, return [parent, expandReplies(parent)]
-        if(parent) if(parent.data) if(parent.data.replies) {
-            let childArray = [<p key={parent.data.id}
-                                id={parent.data.id} 
-                                className={"comment-replies " + "layer-" + layer + " childOf-" + inheritId}>
-                            {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
-                            {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
-            let searchPath = parent.data.replies.data.children; //sets JSON path for for...of
-            for(let reply of searchPath) {
-                // how to set the classes for all replies to make sense??
-                childArray.push(expandReplies(reply, layer+1, inheritId)); //adds result of expandReplies to childArray
-            }
-            return childArray;
-        }
-        // if NO replies, return [parent]
-        else {
-            return [<p key={parent.data.id}
-                    id={parent.data.id}
-                    className={"comment-noreply " + "layer-" + layer + " childOf-" + inheritId}>
-           {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
-           {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
-        }
-    }
+    // const expandReplies = (parent, layer, inheritId = 'none') => {
+    //     // if there are replies, return [parent, expandReplies(parent)]
+    //     if(parent) if(parent.data) if(parent.data.replies) {
+    //         let childArray = [<p key={parent.data.id}
+    //                             id={parent.data.id} 
+    //                             className={"comment-replies " + "layer-" + layer + " childOf-" + inheritId}>
+    //                         {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
+    //                         {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
+    //         let searchPath = parent.data.replies.data.children; //sets JSON path for for...of
+    //         for(let reply of searchPath) {
+    //             // how to set the classes for all replies to make sense??
+    //             childArray.push(expandReplies(reply, layer+1, inheritId)); //adds result of expandReplies to childArray
+    //         }
+    //         return childArray;
+    //     }
+    //     // if NO replies, return [parent]
+    //     else {
+    //         return [<p key={parent.data.id}
+    //                 id={parent.data.id}
+    //                 className={"comment-noreply " + "layer-" + layer + " childOf-" + inheritId}>
+    //        {<button onClick={(e) => {toggleCollapse(e, parent.data.id)}}>-</button>}
+    //        {parent.data.score} | {parse(parseSelfText(parent.data.body))}</p>];
+    //     }
+    // }
 
-    //style toggle handler for comments collapsing
-    const toggleCollapse = (e, element) => {
-        e.preventDefault();
-        console.log(e.target);
-        console.log(element);
-        e.target.classList.toggle('hide-replies'); //toggle THIS
-        e.target.innerHTML = e.target.classList.contains('hide-replies') && '+'; //modify button if the replies are hidden
-        //handling for hiding descendants
-        document.getElementById(element).classList.toggle('collapse-replies')
-        document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
-    }
+    // //style toggle handler for comments collapsing
+    // const toggleCollapse = (e, element) => {
+    //     e.preventDefault();
+    //     console.log(e.target);
+    //     console.log(element);
+    //     e.target.classList.toggle('hide-replies'); //toggle THIS
+    //     e.target.innerHTML = e.target.classList.contains('hide-replies') && '+'; //modify button if the replies are hidden
+    //     //handling for hiding descendants
+    //     document.getElementById(element).classList.toggle('collapse-replies')
+    //     document.getElementsByClassName("childOf-" + element).classList.toggle('thread-collapse');
+    // }
 
     // Copy Thread URL to Clipboard
     const clipboardThread = (e) => {
@@ -175,16 +173,16 @@ export const Thread = () => {
                         <h2 className="thread-title">{threadContent.title}</h2>
                     }
                     {/* previews thumbnail when that is best option */}
-                    {(threadContentType == 'image' || threadContentType == 'gif') && 
-                        <a href={threadContent.url} target="_blank"><img src={threadContent.url} alt="thread url"></img></a>
+                    {(threadContentType === 'image' || threadContentType === 'gif') && 
+                        <a href={threadContent.url} target="_blank" rel="noreferrer"><img src={threadContent.url} alt="thumbnail preview for thread"></img></a>
                     }
                     {/* when thread previews from an external link */}
-                    {(threadContentType == 'other') &&
-                        <a href={threadContent.url} target="_blank"><img src={previewImagePath}></img></a>
+                    {(threadContentType === 'other') &&
+                        <a href={threadContent.url} target="_blank" rel="noreferrer"><img src={previewImagePath} alt="thread media"></img></a>
                     }
                     {/* previews gallery when there is a gallery */}
                     {threadContentType === 'gallery' &&
-                        <a href={threadImagePath} target="_blank"><img src={threadImagePath} alt="gallery preview"></img></a>
+                        <a href={threadImagePath} target="_blank" rel="noreferrer"><img src={threadImagePath} alt="preview from gallery submission"></img></a>
                     }
                     {/* video workaround using reddit Embed, only when video flag is true */}
                     {threadContentType === 'video' &&
@@ -196,6 +194,7 @@ export const Thread = () => {
                                 // height='476'
                                 // width='640'
                                 scrolling="yes"
+                                title="Reddit Video Embed"
                                 className="thread-direct-embed"></iframe>
                     </>}
                     {/* selftext w/o image embed */}
@@ -207,14 +206,16 @@ export const Thread = () => {
                     {/* covers selftext w/image embed */}
                     {threadContent.is_self && threadContent.media_metadata &&
                         <>
-                            <img src={threadContent.media_metadata[Object.keys(threadContent.media_metadata)[0]].s.u.replace(/&amp;/g, '&')}></img>
+                            <img src={threadContent.media_metadata[Object.keys(threadContent.media_metadata)[0]].s.u.replace(/&amp;/g, '&')}
+                                alt="self-text post"></img>
                             <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
                         </>
                     }
                     {/* selftext w/image preview */}
                     {threadContent.is_self && !threadContent.media_metadata && threadContent.preview &&
                         <>
-                            <img src={threadContent.preview.images[0].source.url.replace(/&amp;/g, '&')}></img>
+                            <img src={threadContent.preview.images[0].source.url.replace(/&amp;/g, '&')}
+                                alt="self-text post"></img>
                             <div className="thread-selftext">{parse(parseSelfText(threadContent.selftext))}</div>
                         </>
                     }
