@@ -10,6 +10,7 @@ export const SearchBar = ({className = ''}) => {
     const searchTerm = useSelector(selectSearch)
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    let checkSubmit = false;
     let newUrl;
 
     const handleSubmit = (e) => {
