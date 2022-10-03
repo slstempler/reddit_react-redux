@@ -10,15 +10,12 @@ export const SearchBar = ({className = ''}) => {
     const searchTerm = useSelector(selectSearch)
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    let checkSubmit = false;
     let newUrl;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(searchTerm.match(/[A-Za-z0-9]/g)){
             newUrl = "/r/" + searchTerm;
-            checkSubmit = true;
-            // console.log(`submit status: ${checkSubmit}, url: ${newUrl}`);
             navigate(newUrl);
         }
         else {
