@@ -22,7 +22,6 @@ export const subredditsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase('subreddits/getSubreddits/pending', (state, action) => {
-                //console.log(`pending subs...`);
                 state.isLoading = true;
                 state.hasError = false;
             })
@@ -32,7 +31,6 @@ export const subredditsSlice = createSlice({
                 state.hasError = true;
             })
             .addCase('subreddits/getSubreddits/fulfilled', (state, action) => {
-                //console.log(`subreddits fetch successful!`);
                 state.isLoading = false;
                 state.hasError = true;
                 state.subreddits = action.payload;

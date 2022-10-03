@@ -13,9 +13,8 @@ export const NavBar = () => {
 
     return (
         <div className='navbar-layout'>
-          <IconButton className="nav-button-wrapper navbar-smallformat" 
+          <IconButton className="nav-button-wrapper navbar-smallformat" aria-label="Expand Menu" 
               onClick={(e) => {
-                console.log(document.getElementsByClassName("navbar-expandable"));
                 document.getElementById("navbar-expandable").classList.toggle('hamburger-closed');
                 document.getElementById('navbar-expandable').classList.toggle('hamburger-open');
                 document.getElementById('modal-fade').classList.toggle('modal-fade-active');
@@ -27,10 +26,10 @@ export const NavBar = () => {
           <NavLink to="/" className="nav-header"><h1 className="nav-header">RE:ddit</h1></NavLink>
           <SearchBar className="searchbar navbar-standardformat"/>
           <div className="nav-button-tray navbar-standardformat">
-            <IconButton className="nav-button-wrapper navbar-standardformat" onClick={() => navigate(-1)}>
+            <IconButton className="nav-button-wrapper navbar-standardformat" onClick={() => navigate(-1)} aria-label="Back">
               <ArrowBack className="nav-button" size='medium'>Back</ArrowBack>
             </IconButton>
-            <IconButton className="nav-button-wrapper navbar-standardformat" onClick={() => navigate(1)}>
+            <IconButton className="nav-button-wrapper navbar-standardformat" onClick={() => navigate(1)} aria-label="Forward">
               <ArrowForward className="nav-button" size='medium'>Forward</ArrowForward>
             </IconButton>
           </div>
@@ -38,12 +37,12 @@ export const NavBar = () => {
               <SearchBar className="searchbar navbar-smallformat"/>
               <ul className="navbar-dropdown-menu">
                 <li>
-                  <IconButton className="nav-button-wrapper navbar-smallformat" onClick={() => navigate(-1)}>
+                  <IconButton className="nav-button-wrapper navbar-smallformat" onClick={() => navigate(-1)} aria-label="Back">
                     <ArrowBack className="nav-button" size='medium'>Back</ArrowBack>
                   </IconButton>
                 </li>
                 <li>
-                  <IconButton className="nav-button-wrapper navbar-smallformat" onClick={() => navigate(1)}>
+                  <IconButton className="nav-button-wrapper navbar-smallformat" onClick={() => navigate(1)} aria-label="Forward">
                     <ArrowForward className="nav-button" size='medium'>Forward</ArrowForward>
                   </IconButton>
                 </li>
@@ -51,6 +50,7 @@ export const NavBar = () => {
               <div className="navbar-sidebar">
                 <button tabIndex={0}
                 className="navbar-sidebar-header"
+                aria-label="Expand Popular Subreddits"
                 onClick={(e) => {
                   document.getElementById('navbar-subreddits').classList.toggle('navbar-subreddits-open');
                   document.getElementById('navbar-subreddits').classList.toggle('navbar-subreddits-closed');

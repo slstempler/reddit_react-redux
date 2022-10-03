@@ -13,12 +13,13 @@
 .sidebar-item {
     list-style: inherit;
     padding: 0.5rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 0.3rem;
     margin: 0.8rem 0px;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: #f8b0f6ce;
+    background-color: #F3e5f2;
+
 }
 
 .sidebar-list {
@@ -31,6 +32,7 @@
 .sidebar-link {
     text-decoration: none;
     z-index: 8;
+    color: #0f4a85;
 } 
 
   /* Tablets, Large Phones in Landscape*/
@@ -56,10 +58,9 @@
         margin-bottom: 1rem;
     }
     
-    .sidebar-item {
-        background-color: rgba(218,112,214, 0.2);
+    .sidebar-item, .sidebar-item {
+        transition: background-color ease-in-out 0.2s;
     }
-    
     .sidebar-item:first-child{
         margin-top: 0px;
     }
@@ -67,8 +68,13 @@
         margin-bottom: 0px;
     }
     .sidebar-item:hover {
-        background-color: rgba(218,112,214, 0.5);
-        transition: background-color ease-in-out 0.2s;
+        background-color: rgba(216, 128, 213, 0.5);
+    }
+    .sidebar-item a {
+        transition: color ease-in-out 0.2s;
+    }
+    .sidebar-item:hover a {
+        color: white;
     }
     
     

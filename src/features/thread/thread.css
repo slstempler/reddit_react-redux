@@ -9,7 +9,6 @@
     text-overflow: ellipsis;
 }
 
-
 .comment-user {
     display: inline-block;
     max-width: 70%;
@@ -17,6 +16,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
+}
+
+.comment-user, .comment-details, .comment-details a {
+    color: #0f4a85;
 }
 
 .comment-replies, .comment-noreply {

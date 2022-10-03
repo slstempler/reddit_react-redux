@@ -23,7 +23,6 @@ export const fetchSubreddits = () => {
 
 //gets data pulled from thread ID
 export const fetchThread = ({subreddit, threadId}) => {
-    //console.log(`trying to fetch from https://www.reddit.com/r/${subreddit}/comments/${threadId}.json`);
     const response = fetch(`https://www.reddit.com/r/${subreddit}/comments/${threadId}.json`);
     return response;
 }

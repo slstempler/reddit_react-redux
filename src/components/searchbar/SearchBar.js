@@ -18,7 +18,7 @@ export const SearchBar = ({className = ''}) => {
         if(searchTerm.match(/[A-Za-z0-9]/g)){
             newUrl = "/r/" + searchTerm;
             checkSubmit = true;
-            console.log(`submit status: ${checkSubmit}, url: ${newUrl}`);
+            // console.log(`submit status: ${checkSubmit}, url: ${newUrl}`);
             navigate(newUrl);
         }
         else {
@@ -39,7 +39,7 @@ export const SearchBar = ({className = ''}) => {
                 pattern="^[A-Za-z0-9]+$"
                 onChange={handleChange}>
             </input>
-            <IconButton type="submit" className={"form-submit nav-button " + className} size="medium">
+            <IconButton type="submit" className={"form-submit nav-button " + className} aria-label="Submit Search" size="medium">
                 <input hidden />
                 <SearchIcon className="form-submit-icon" size="medium"/>
             </IconButton>

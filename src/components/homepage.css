@@ -8,6 +8,10 @@
     margin-left: 1.5rem;
 }
 
+.homepage-container h2 {
+    font-size: 1.17em;
+}
+
 .homepage-searchbar {
     margin: 0px auto;
     display: flex;

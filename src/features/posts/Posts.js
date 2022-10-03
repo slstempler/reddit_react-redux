@@ -17,7 +17,6 @@ export const Posts = () => {
     const params = useParams();
     const subredditSelection = params.subreddit;
     const location = useLocation();
-    // const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
 
     //URL Query Management
@@ -30,12 +29,6 @@ export const Posts = () => {
     // 1. if we have a direct URL query, prefer that
     // 2. if we don't - either from Posts or Thread, prefer store
     // 3. if we have neither, go to default
-
-
-    // const handleLoadPosts = (e) => {
-    //     e.preventDefault();
-    //     dispatch(getPosts(subredditSelection, after));
-    // }
 
     const handleNextPage = (e) => {
         e.preventDefault();
@@ -53,6 +46,9 @@ export const Posts = () => {
     //utilizes useEffect hook per React demands and useLocation to 
     const firstRender = () => {
         
+        // update tab/window title
+        document.title = subredditSelection + " | RE:ddit";
+
         let searchBefore = ''; 
         let searchAfter = '';
 
@@ -70,6 +66,7 @@ export const Posts = () => {
     // React-Redux flow interfering with linter prefs per https://github.com/facebook/create-react-app/issues/6880 - requires rework of logic
     // eslint-disable-next-line
     useEffect(firstRender, [location]);
+
     //resets scroll position after a new page is loaded
     //reset the dependency array once more URL params implemented?
     useEffect(() => {
@@ -86,7 +83,6 @@ export const Posts = () => {
             <h1 className="posts-subreddit-header">r/{subredditSelection.toLowerCase()}</h1>
             <div className="posts-container">
                 {posts.map(post => {
-                    //console.log(post);
                     return <Post postData={post.data} key={post.data.id}/>
                 })}
             </div>

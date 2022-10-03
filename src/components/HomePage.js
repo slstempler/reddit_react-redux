@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SearchBar } from "./searchbar/SearchBar";
 import "./homepage.css";
@@ -11,6 +11,8 @@ export const HomePage = () => {
     const subreddits = useSelector(selectSubreddits);
     const navigate = useNavigate();
 
+    //updates document title on load
+    useEffect(() => {document.title = "RE:ddit"}, [])
 
     return (
         <section className="homepage-container">
@@ -27,10 +29,10 @@ export const HomePage = () => {
                                 e.preventDefault();
                                 navigate(path);
                             }}>
-                            <h3>{sub.data.display_name}</h3>
+                            <h2>{sub.data.display_name}</h2>
                             <div className="sub-description">{parse(parseSelfText(sub.data.public_description))}</div>
                             {(sub.data.icon_img || sub.data.community_icon) && 
-                            <img alt={"subreddit icon for " + sub.data.display_name} src={sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon.replace(/&amp;/g, "&")}></img>}
+                            <img alt={"subreddit icon for " + sub.data.display_name} loading="lazy" src={sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon.replace(/&amp;/g, "&")}></img>}
                         </div>
                     );
                 })}
