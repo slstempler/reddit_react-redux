@@ -1,11 +1,14 @@
 /* General Styles */
+:root {
+    --navbar-main-bg: hsla(301, 72%, 34%, 1);
+}
 .navbar-layout {
     width: 100%;
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: flex-start;
-    background-color: orchid;
+    background-color: var(--navbar-main-bg);
     color: white;
     padding: 0px 1rem;
 }
@@ -39,6 +42,7 @@
     border: 1px solid rgb(233, 80, 80);
     outline: 1px solid rgb(233, 80, 80);
     transition: background-color ease-in 0.2s;
+    color: white;
 }
 .form-submit-icon {
     color: white;
@@ -83,7 +87,7 @@
 }
 /* Hamburger Menu */
 #navbar-expandable {
-    background-color: rgb(212, 150, 210);
+    background-color: var(--navbar-main-bg);
     width: 100%;
     position: absolute;
     top: 5rem;
@@ -130,6 +134,11 @@
 .navbar-sidebar-header {
     font-weight: 500;
     margin-bottom: 1rem;
+    width: 10rem;
+    height: 2.2rem;
+    background-color: #f3e5f2;
+    border-radius: 0.3rem;
+    border: 2px solid rgba(0,0,0,0.4);
 }
 
 /* hack to fix CSS for searchbar */

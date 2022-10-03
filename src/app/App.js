@@ -39,7 +39,7 @@ export default function App() {
             <Route path="/r/:subreddit/comments/:threadId" element={<Thread />} />
           </Routes>
         </div>
-        <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop}/>
+        <KeyboardDoubleArrowUp className='scroll-button' onClick={scrollToTop} aria-label="Scroll to Top"/>
       </div>
   );
 }

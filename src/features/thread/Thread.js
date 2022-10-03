@@ -223,7 +223,7 @@ export const Thread = () => {
                 <section className="thread-comments">
                     <h3>{threadContent.num_comments} Comments</h3>
                     {threadData.map(comment=> {
-                        return <Comment commentData={comment} threadLayer={0}/>
+                        return <Comment commentData={comment} threadLayer={0} key={comment.data.id}/>
                     })}
                    {/*
                    {threadData.map(comment => {

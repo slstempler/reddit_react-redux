@@ -27,10 +27,10 @@ export const HomePage = () => {
                                 e.preventDefault();
                                 navigate(path);
                             }}>
-                            <h3>{sub.data.display_name}</h3>
+                            <h2>{sub.data.display_name}</h2>
                             <div className="sub-description">{parse(parseSelfText(sub.data.public_description))}</div>
                             {(sub.data.icon_img || sub.data.community_icon) && 
-                            <img alt={"subreddit icon for " + sub.data.display_name} src={sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon.replace(/&amp;/g, "&")}></img>}
+                            <img alt={"subreddit icon for " + sub.data.display_name} loading="lazy" src={sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon.replace(/&amp;/g, "&")}></img>}
                         </div>
                     );
                 })}

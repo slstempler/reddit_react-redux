@@ -91,7 +91,7 @@ export const Comment = ({commentData = {data: {replies: "", body: ""},}, threadL
             }
             {/* if there are replies, recursively drill down through, mapping those out */}
             {hasReplies && commentData.data.replies.data.children.map(comment => {
-                return <Comment commentData={comment} threadLayer={threadLayer+1} />}
+                return <Comment commentData={comment} threadLayer={threadLayer+1} key={comment.data.id} />}
             )}
         </div>
     )

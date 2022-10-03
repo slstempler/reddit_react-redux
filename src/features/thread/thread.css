@@ -19,6 +19,10 @@
     vertical-align: middle;
 }
 
+.comment-user, .comment-details, .comment-details a {
+    color: #0f4a85;
+}
+
 .comment-replies, .comment-noreply {
     padding: 0.8rem;
 }
