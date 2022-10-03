@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SearchBar } from "./searchbar/SearchBar";
 import "./homepage.css";
@@ -11,6 +11,8 @@ export const HomePage = () => {
     const subreddits = useSelector(selectSubreddits);
     const navigate = useNavigate();
 
+    //updates document title on load
+    useEffect(() => {document.title = "RE:ddit"}, [])
 
     return (
         <section className="homepage-container">

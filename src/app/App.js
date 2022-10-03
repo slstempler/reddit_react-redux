@@ -1,10 +1,6 @@
-// import logo from '../logo.svg';
 import '../App.css';
-import {Route,
-    Routes} from 'react-router-dom';
-// import {Post} from '../features/posts/Post';
+import {Route, Routes} from 'react-router-dom';
 import {Posts} from '../features/posts/Posts';
-// import { SearchBar } from '../components/searchbar/SearchBar';
 import { SideBar } from '../components/SideBar';
 import { Thread } from '../features/thread/Thread';
 import { NavBar } from '../components/NavBar';
@@ -12,7 +8,6 @@ import KeyboardDoubleArrowUp from '@mui/icons-material/KeyboardDoubleArrowUp'
 import { HomePage } from '../components/HomePage';
 
 export default function App() {
-  // const navigate = useNavigate();
 
   const scrollToTop = (e) => {
     e.preventDefault();

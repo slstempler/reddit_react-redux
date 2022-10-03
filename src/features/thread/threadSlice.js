@@ -13,9 +13,8 @@ export const getThread = createAsyncThunk(
 //selects image path(s) for gallery preview from Thread json
 const extractImages = (action) => {
     let imagePath = ''
-    //let stringTest = "[payload][0][data][children][0][data][media_metadata]";
     if(action.payload[0].data.children[0].data.media_metadata){
-        console.log(`imagePath = ${imagePath}`)
+        // console.log(`imagePath = ${imagePath}`)
         const galleryData = action.payload[0].data.children[0].data.media_metadata;
         let pathHolding = '';
         for(let key in galleryData){
@@ -70,7 +69,6 @@ const replySearcher = (array, commentId) => {
         if(typeof current(comment) === 'object'){
             //swap if a match!
             if(comment.id === commentId){
-                //console.log(`located!`);
                 comment.showReplies = comment.showReplies ? false : true;
             }
             else {
@@ -79,7 +77,6 @@ const replySearcher = (array, commentId) => {
         }
         //if an array, this contains replies - keep digging lower
         else if(Array.isArray(comment)){
-           //console.log(`array found!`);
             replySearcher(comment, commentId);
         }
     }
@@ -111,7 +108,6 @@ export const parseSelfText = (text = '') => {
 
     // Blockquotes: > in front of paragraph
     finalText = finalText.replace(blockquoteRegex, (match, p1, p2) => {
-       //console.log(`found blockquote: ${p1} | ${p2} | match: ${match}`);
         let noMarkdown = p1.slice(4);
         let noSpacing = p2.slice(2);
         return `<blockquote>${noMarkdown}</blockquote> ${noSpacing}`;
@@ -119,9 +115,7 @@ export const parseSelfText = (text = '') => {
 
     // Bullets: * or - (maybe want <ul>?)
     finalText = finalText.replace(bulletRegex, (match) => {
-        //console.log(`located bulleted list!`);
         let final = match.replace(subBulletRegex, subMatch => {
-            //console.log(`inserting list item...`);
             let truncated = subMatch.slice(2);
             return `<li>${truncated}</li>`;
         });
@@ -154,7 +148,6 @@ export const parseSelfText = (text = '') => {
       
     // pulls formatted URL into anchor
     if(finalText.match(mdURLRegex)) {
-        //console.log(`found reddit markdown: ${finalText}`)
         finalText = finalText.replace(mdURLRegex, (match) => {
             
             let replacerText = match.slice(match.indexOf('[')+1, match.indexOf(']'));
@@ -203,7 +196,6 @@ export const parseSelfText = (text = '') => {
 
     // horizontal line -> <hr>
     finalText = finalText.replace(horizLineRegex, (match) => {
-        //console.log(`found match ${match}!`);
         return "<br><hr><br>";
     });
 
@@ -232,23 +224,12 @@ export const threadSlice = createSlice({
             state.imagePath = action.payload;
         },
         toggleCommentCollapse(state, action) {
-            // redo
-            // if(state.replyChains[action.payload].replies){
-            //     state.replyChains[action.payload].replies = false;
-            // }
-            // else if(!state.replyChains[action.payload].replies){
-            //     state.replyChains[action.payload].replies = true;
-            // }
-            // else {
-            //     throw new Error('comment reducer machine broke');
-            // }
             replySearcher(state.replyChains, action.payload);
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase('posts/getThread/pending', (state, action) => {
-                //console.log(`fetching thread...`);
                 state.isLoading = true;
                 state.hasError = false;
             })

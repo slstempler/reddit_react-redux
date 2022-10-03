@@ -80,8 +80,7 @@ export const Post = ({postData}) => {
                 <a href={"https://www.reddit.com/u/" + postData.author} 
                 className="posts-post-user">{postData.author}</a>
             </div>
-        
-        {console.log(`${postData.title} is ${postTypeFlag}`)}
+
         {/* Post is A VIDEO */}
             {postTypeFlag === 'video' && !postHideFlag &&
                 <>
@@ -94,9 +93,6 @@ export const Post = ({postData}) => {
             }
         {/* Post IS a gallery or selftext with media */}
             {(postTypeFlag === 'gallery' || postTypeFlag === 'self-withMedia') && !postHideFlag &&
-            // (postData.is_gallery || (postData.is_self && postData.media_metadata)) &&
-            // (thumbUrl && thumbUrl !== 'nsfw' && thumbUrl !== 'spoiler') && 
-            // !postData.is_video &&
                 <>
                     <img src={findfirstGalleryImageUrl(postData.media_metadata)} alt="gallery or mixed text-media post" className="posts-post-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
@@ -104,7 +100,6 @@ export const Post = ({postData}) => {
             }
         {/* Post is NOT a gallery & is a direct image link */}
             {postTypeFlag === 'directMedia' && !postHideFlag &&
-            // thumbUrl && thumbUrl !== 'spoiler' && thumbUrl !== 'nsfw' && !postData.is_gallery && !postData.is_video && postData.domain === 'i.redd.it' &&
                 <>
                     <img src={postData.url} alt="post preview - direct submission" className="posts-post-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
@@ -112,8 +107,6 @@ export const Post = ({postData}) => {
             }
         {/* Post is a link, NOT a video, and NOT an image link - includes selftext w/image embeds */}
             {(postTypeFlag === 'self-other' || postTypeFlag === 'link-preview') && !postHideFlag &&
-            /* {postData.domain !== 'i.redd.it' && postData.preview && !postData.is_video &&
-            (thumbUrl && thumbUrl !== 'nsfw' && thumbUrl !== 'spoiler') &&  */
                 <>
                     <img src={findPreviewThumbnail()} alt="post preview - text submission" className="posts-link-thumbnail"></img>
                     <a href={postUrl} className="posts-post-link">{postData.title}</a>
@@ -121,7 +114,6 @@ export const Post = ({postData}) => {
             }
         {/* Post does NOT have thumbnail */}
             {(postTypeFlag === 'self-noMedia' || postTypeFlag === 'other-noPreview' || postHideFlag || postTypeFlag === 'self-redditVideo') &&
-            /* {((!thumbUrl || thumbUrl === 'nsfw' || thumbUrl === 'spoiler')) && */
                 <>
                     {thumbUrl === 'nsfw' &&  
                         <h2 className="posts-post-nsfw">[NSFW]</h2>

@@ -18,7 +18,7 @@ export const SearchBar = ({className = ''}) => {
         if(searchTerm.match(/[A-Za-z0-9]/g)){
             newUrl = "/r/" + searchTerm;
             checkSubmit = true;
-            console.log(`submit status: ${checkSubmit}, url: ${newUrl}`);
+            // console.log(`submit status: ${checkSubmit}, url: ${newUrl}`);
             navigate(newUrl);
         }
         else {

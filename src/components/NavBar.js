@@ -15,7 +15,6 @@ export const NavBar = () => {
         <div className='navbar-layout'>
           <IconButton className="nav-button-wrapper navbar-smallformat" aria-label="Expand Menu" 
               onClick={(e) => {
-                console.log(document.getElementsByClassName("navbar-expandable"));
                 document.getElementById("navbar-expandable").classList.toggle('hamburger-closed');
                 document.getElementById('navbar-expandable').classList.toggle('hamburger-open');
                 document.getElementById('modal-fade').classList.toggle('modal-fade-active');
